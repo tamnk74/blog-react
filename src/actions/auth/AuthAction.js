@@ -1,5 +1,5 @@
 import { authConstants } from '../../constants';
-import { userService } from '../../services';
+import { authService } from '../../services';
 import { alertActions } from '../';
 import { history } from '../../helpers';
 
@@ -13,7 +13,7 @@ function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
 
-        userService.login(username, password)
+        authService.login(username, password)
             .then(
                 user => { 
                     console.log('Auth: ', user);
@@ -33,7 +33,7 @@ function login(username, password) {
 }
 
 function logout() {
-    userService.logout();
+    authService.logout();
     return { type: authConstants.LOGOUT };
 }
 
@@ -41,7 +41,7 @@ function register(user) {
     return dispatch => {
         dispatch(request(user));
 
-        userService.register(user)
+        authService.register(user)
             .then(
                 user => { 
                     dispatch(success());

@@ -1,26 +1,45 @@
-import { authHeader } from '../helpers';
+import axios from 'axios'
 
-export const userService = {
+export const authService = {
     login,
     logout,
     register
 };
 
-async function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
-    return await fetch(`${config.apiUrl}/auth/login`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
+function login(username, password) {
+    const email = validateEmail(username) ? username : false;
+    const name = !email && username;
+
+    return axios.post('http://localhost:3000/api/auth/login', {
+        email: email || undefined,
+        name: name || undefined,
+        password: password
+    })
+    .then(res => {
+        if (res.data.error) {
+            return Promise.reject(res.data.error.message);
+        }
+        const {token, user} = res.data.data;
+        if(token) {
+            axios.defaults.headers.common['Authorization'] = token;
+            localStorage.setItem('jwt', token);
             localStorage.setItem('user', JSON.stringify(user));
+        }
+        else {
+            delete axios.defaults.headers.common['Authorization'];
+            localStorage.removeItem('jwt');
+            localStorage.removeItem('user');
+        }
 
-            return user;
-        });
+        return user;
+    }, error => {
+        return Promise.reject(error);
+    });
 }
 
 function logout() {
@@ -39,8 +58,10 @@ function register(user) {
 }
 
 function handleResponse(response) {
+    console.log('Response1: ', response);
     return response.text().then(text => {
         const data = text && JSON.parse(text);
+        console.log('Response2: ', data);
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api

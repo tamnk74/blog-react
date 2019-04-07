@@ -12,8 +12,8 @@ class SignIn extends React.Component {
     this.props.dispatch(authActions.logout());
 
     this.state = {
-      username: '',
-      password: '',
+      username: 'tamnk',
+      password: '123!@#',
       submitted: false
     };
 
@@ -33,7 +33,6 @@ class SignIn extends React.Component {
     const { username, password } = this.state;
     const { dispatch } = this.props;
     if (username && password) {
-      console.log(authActions.login(username, password));
       dispatch(authActions.login(username, password));
     }
   }
@@ -73,7 +72,6 @@ class SignIn extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   const { loggingIn } = state.auth;
   return {
     loggingIn
