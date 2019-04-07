@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PostList from '../posts/PostList'
+import LatestPost from '../posts/PostList'
 import Notifications from '../dashboard/Notifications'
 
 class HomePage extends Component {
@@ -9,7 +9,7 @@ class HomePage extends Component {
       <div className="dashboard container">
         <div className="row">
           <div className="col-md-9">
-            <PostList />
+            <LatestPost />
           </div>
           <div className="col-md-3">
             <Notifications />
