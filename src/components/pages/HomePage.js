@@ -4,6 +4,7 @@ import Notifications from '../dashboard/Notifications'
 
 class HomePage extends Component {
   render() {
+    console.log('Render Homepage');
     return (
       <div className="dashboard container">
         <div className="row">
