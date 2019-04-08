@@ -17,9 +17,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Alert />
         <Router history={history}>
           <Navbar />
+          <Alert />
           <Route exact path='/' component={HomePage} />
           <Route path='/login' component={SignIn} />
           <Route path='/signup' component={SignUp} />

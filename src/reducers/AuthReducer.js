@@ -1,7 +1,11 @@
 import { authConstants } from '../constants';
+import axios from 'axios';
 
 let user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? { loggedIn: true, user } : {};
+let jwt = localStorage.getItem('jwt');
+const initialState = jwt && user ? { loggedIn: true, user } : {};
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
+
 
 export function auth(state = initialState, action) {
   switch (action.type) {

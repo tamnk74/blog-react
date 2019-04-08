@@ -26,7 +26,7 @@ function login(username, password) {
         }
         const {token, user} = res.data.data;
         if(token) {
-            axios.defaults.headers.common['Authorization'] = token;
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
             localStorage.setItem('jwt', token);
             localStorage.setItem('user', JSON.stringify(user));
         }

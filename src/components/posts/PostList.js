@@ -1,17 +1,18 @@
 import React from 'react'
 import PostSummary from './PostSummary'
+//import './Post.css'
 
-const PostList = ({posts}) => {
+const PostList = ({ posts, pageInfo }) => {
+
   const postList = posts.map(post => (
-    <PostSummary/>
+    <li className="list-group-item" key={post.id}><PostSummary post={post} /></li>
   ));
+
   return (
-    <Fragment>
-      <div className="row post-list">
-        {postList}
-      </div>
-    </Fragment>
+    <div className="row post-list-mgt">
+      <ul className="list-group"> {postList}</ul>
+    </div>
   )
 }
 
-export default PostSummary
+export default PostList

@@ -5,8 +5,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "history": "^4.9.0",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-moment": "^0.8.4",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
@@ -15,7 +17,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "start": "webpack-dev-server --open --hot",
     "build": "webpack --mode production"
   },
   "eslintConfig": {
@@ -33,8 +35,10 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
     "path": "^0.12.7",
+    "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"

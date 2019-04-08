@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import LatestPost from '../posts/PostList'
+import { LatestPost } from '../posts/LatestPost'
 import Notifications from '../dashboard/Notifications'
 
 class HomePage extends Component {
