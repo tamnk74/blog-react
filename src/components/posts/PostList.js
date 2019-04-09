@@ -1,6 +1,6 @@
 import React from 'react'
 import PostSummary from './PostSummary'
-//import './Post.css'
+import css from './Post.css'
 
 const mrt15 = {
   marginTop: '-15px',
