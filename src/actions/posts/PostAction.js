@@ -10,16 +10,16 @@ function getPosts(type = null) {
     return dispatch => {
         postService.getPosts(type)
             .then(
-                posts => { 
+                posts => {
                     dispatch(success(posts));
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(failure(error));
+                    dispatch(alertActions.error(error));
                 }
             );
     };
 
     function success(posts) { return { type: postConstants.LIST_POST_SUCCESS, posts } }
-    function failure(error) { return { type: postConstants.LIST_POST_FAILE, error } }
+    function failure(error) { return { type: postConstants.LIST_POST_FAILED, error } }
 }

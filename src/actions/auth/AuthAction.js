@@ -16,13 +16,12 @@ function login(username, password) {
         authService.login(username, password)
             .then(
                 user => { 
-                    console.log('Auth: ', user);
                     dispatch(success(user));
                     history.push('/');
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(failure(error));
+                    dispatch(alertActions.error(error));
                 }
             );
     };

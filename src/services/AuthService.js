@@ -22,11 +22,11 @@ function login(username, password) {
     })
     .then(res => {
         if (res.data.error) {
-            return Promise.reject(res.data.error.message);
+            return Promise.reject(res.data.error);
         }
         const {token, user} = res.data.data;
         if(token) {
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
             localStorage.setItem('jwt', token);
             localStorage.setItem('user', JSON.stringify(user));
         }

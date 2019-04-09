@@ -8,8 +8,6 @@ class LatestPost extends React.Component {
 
   constructor(props) {
     super(props);
-
-    // Get latest posts
     this.props.dispatch(postActions.getPosts('latest'));
   }
 
@@ -21,20 +19,7 @@ class LatestPost extends React.Component {
       )
     }
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-9">
-            <div className="panel panel-default">
-              <div className="panel-heading">
-                <h1>Recently Post</h1>
-              </div>
-              <div className="panel-body">
-                <PostList posts={posts} pageInfo={pageInfo}/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PostList posts={posts} pageInfo={pageInfo} />
     )
   }
 }
