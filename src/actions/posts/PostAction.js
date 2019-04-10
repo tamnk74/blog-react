@@ -1,6 +1,6 @@
 import { postConstants } from '../../constants';
 import { postService } from '../../services';
-import { alertActions } from '../';
+import { alertActions, authActions } from '../';
 
 export const postActions = {
     getPosts,
@@ -14,6 +14,9 @@ function getPosts(type = null) {
                     dispatch(success(posts));
                 },
                 error => {
+                    if (error.response && error.response.status == 401) {
+                        dispatch(authActions.logout());
+                    }
                     dispatch(failure(error));
                     dispatch(alertActions.error(error));
                 }

@@ -15,8 +15,8 @@ function getPosts(type) {
             url = 'http://localhost:3000/api/posts/latest'; break;
         case 'trend':
             url = 'http://localhost:3000/api/posts/trend'; break;
-        case 'hot':
-            url = 'http://localhost:3000/api/posts/hot'; break;
+        case 'top':
+            url = 'http://localhost:3000/api/posts/top'; break;
         default :
             url = 'http://localhost:3000/api/posts/';
     }
