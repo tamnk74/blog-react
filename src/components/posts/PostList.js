@@ -6,7 +6,7 @@ const mrt15 = {
   marginTop: '-15px',
 };
 
-const PostList = ({ posts, pageInfo }) => {
+const PostList = ({ posts }) => {
 
   const postList = posts.map(post => (
     <li className="list-group-item" key={post.id}><PostSummary post={post} /></li>

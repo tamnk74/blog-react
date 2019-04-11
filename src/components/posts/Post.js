@@ -9,33 +9,37 @@ class Post extends React.Component {
 
   constructor(props) {
     super(props);
-    const { type = 'latest' } = this.props;
-    this.props.dispatch(postActions.getPosts(type));
     this.state = {
-      activePage: 1
+      page: 1,
+      limit: 3,
     };
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({activePage: pageNumber});
+  componentWillMount() {
+    // Loads some posts on initial load
+    this.props.dispatch(postActions.getPosts(this.props.type, this.state.page, this.state.limit));
+  }
+
+  handlePageChange(page) {
+    this.props.dispatch(postActions.getPosts(this.props.type, page, this.state.limit));
   }
 
   render() {
     const { posts, pageInfo } = this.props;
-    if (!posts) {
+    const { limit } = this.state;
+    if (!posts || !pageInfo) {
       return (
         <div> No posts !</div>
       )
     }
     return (
       <Fragment>
-        <PostList posts={posts} pageInfo={pageInfo} />
+        <PostList posts={posts}/>
         <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={10}
-          totalItemsCount={450}
+          activePage={pageInfo.page}
+          itemsCountPerPage={limit}
+          totalItemsCount={pageInfo.count}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
         />

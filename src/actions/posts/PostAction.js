@@ -6,9 +6,9 @@ export const postActions = {
     getPosts,
 };
 
-function getPosts(type = null) {
+function getPosts(type = null, page, limit) {
     return dispatch => {
-        postService.getPosts(type)
+        postService.getPosts(type, page, limit)
             .then(
                 posts => {
                     dispatch(success(posts));
