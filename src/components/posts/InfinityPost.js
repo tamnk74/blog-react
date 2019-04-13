@@ -16,26 +16,20 @@ class InfinityPost extends React.Component {
         // Binds our scroll event handler
         window.onscroll = () => {
             const {
+                loadMorePosts,
                 state: {
                     error,
                     isLoading,
                     hasMore,
                 },
             } = this;
-
-            // Bails early if:
-            // * there's an error
-            // * it's already loading
-            // * there's nothing left to load
+            
             if (error || isLoading || !hasMore) return;
 
             // Checks that the page has scrolled to the bottom
-            if (
-                window.innerHeight + document.documentElement.scrollTop
-                === document.documentElement.offsetHeight
-            ) {
+            if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
                 console.log('Load next page');
-                // loadUsers();
+                loadMorePosts();
             }
         };
 
@@ -47,10 +41,10 @@ class InfinityPost extends React.Component {
         this.props.dispatch(postActions.getPosts(this.props.type, this.state.page, this.state.limit));
     }
 
-    handlePageChange(page) {
+    loadMorePosts() {
         this.props.dispatch(postActions.getPosts(this.props.type, page, this.state.limit));
     }
-
+    
     render() {
         const { posts, pageInfo } = this.props;
         const { limit } = this.state;

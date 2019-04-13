@@ -32,6 +32,9 @@ function getPosts(type, page = 1, limit = 10) {
             const posts = res.data;
             return posts;
         }, error => {
+            if (error.response && error.response.data) {
+                return Promise.reject(error.response.data.error);
+            }
             return Promise.reject(error);
         });
 }

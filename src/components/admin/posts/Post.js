@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import PostList from './PostList'
-import { postActions } from '../../actions'
+import PostTable from './PostTable'
+import { postActions } from '../../../actions'
 import Pagination from "react-js-pagination";
 
 class Post extends React.Component {
@@ -11,7 +11,7 @@ class Post extends React.Component {
     super(props);
     this.state = {
       page: 1,
-      limit: 3,
+      limit: 20,
     };
     this.handlePageChange = this.handlePageChange.bind(this);
   }
@@ -34,7 +34,7 @@ class Post extends React.Component {
     }
     return (
       <Fragment>
-        <PostList posts={posts}/>
+        <PostTable posts={posts}/>
         <Pagination
           activePage={pageInfo.page}
           itemsCountPerPage={limit}
@@ -46,7 +46,6 @@ class Post extends React.Component {
     )
   }
 }
-
 
 function mapStateToProps(state) {
   const { data, pageInfo } = state.post && state.post.list || {};

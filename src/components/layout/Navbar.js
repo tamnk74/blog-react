@@ -38,7 +38,7 @@ class Navbar extends React.Component {
                             </div>
                             </form>
                         </div>
-                        { auth.loggedIn ? <SignedInLinks user={auth.user.name}/> : <SignedOutLinks/>}
+                        { auth.loggedIn ? <SignedInLinks user={auth.user}/> : <SignedOutLinks/>}
                     </div>
                     
                 </div>

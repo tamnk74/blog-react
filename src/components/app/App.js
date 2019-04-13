@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { Router, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Router, Route, Switch } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config'
 
 import { history } from '../../helpers';
-import {Navbar} from '../layout/Navbar';
-import HomePage from '../pages/HomePage';
-import PostPage from '../pages/PostPage';
-import { SignIn, SignUp } from '../auth';
+import { Navbar } from '../layout/Navbar';
 import { Alert } from '../alert/Alert';
+import routes from '../../routes'
 
 class App extends Component {
 
@@ -21,10 +19,11 @@ class App extends Component {
         <Router history={history}>
           <Navbar />
           <Alert />
-          <Route exact path='/' component={HomePage} />
-          <Route exact path='/posts' component={PostPage} />
-          <Route path='/login' component={SignIn} />
-          <Route path='/signup' component={SignUp} />
+          <Switch>
+            { routes.map((route, i) => (
+              <Route key={i} exact={route.exact} path={route.path} component={route.component} />
+            ))}
+          </Switch>
         </Router>
       </div>
     );
