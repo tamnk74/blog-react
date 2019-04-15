@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
-import { Post } from './Post'
-import Notifications from '../../dashboard/Notifications'
+import PostForm from '../posts/PostForm'
+import Notifications from '../dashboard/Notifications'
 
-class PostPageAdmin extends Component {
-  render() { 
+class NewPostPage extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div className="dashboard container">
         <div className="row">
           <div className="col-md-9">
-            <Post type="latest"/>
+            <PostForm />
           </div>
           <div className="col-md-3">
             <Notifications />
@@ -19,4 +23,4 @@ class PostPageAdmin extends Component {
   }
 }
 
-export default PostPageAdmin
+export default NewPostPage

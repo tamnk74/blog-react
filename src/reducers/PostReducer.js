@@ -1,6 +1,6 @@
 import { postConstants } from '../constants';
 
-export function post(state = {}, action) {
+export function posts(state = {}, action) {
   switch (action.type) {
     case postConstants.LIST_POST_SUCCESS:
       return {

@@ -2,15 +2,21 @@ import React from "react";
 
 import HomePage from '../components/pages/HomePage';
 import PostPage from '../components/pages/PostPage';
+import NewPostPAge from '../components/pages/NewPostPage';
 import { SignIn, SignUp } from '../components/auth';
 import PostPageAdmin from '../components/admin/posts/PostPageAdmin';
 import PageNotFound from '../components/pages/PageNotFound';
+
 
 const routes = [
     {
         path: "/",
         exact: true,
         component: HomePage
+    },
+    {
+        path: "/posts/create",
+        component: NewPostPAge,
     },
     {
         path: "/posts",

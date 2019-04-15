@@ -30,6 +30,7 @@ class SignedInLinks extends React.Component {
           </a>
           <ul className="dropdown-menu" role="menu">
             <li><NavLink to='/myposts'>My Posts</NavLink></li>
+            <li><NavLink to='/posts/create'>New Posts</NavLink></li>
             <li><NavLink to='/profile'>Profile</NavLink></li>
             <li><a onClick={this.handleLogout} href="#">Logout</a></li>
           </ul>

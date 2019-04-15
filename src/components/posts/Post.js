@@ -49,7 +49,7 @@ class Post extends React.Component {
 
 
 function mapStateToProps(state) {
-  const { data, pageInfo } = state.post && state.post.list || {};
+  const { data, pageInfo } = state.posts && state.posts.list || {};
   return {
     posts: data || [],
     pageInfo: pageInfo

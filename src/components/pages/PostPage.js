@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Post } from '../posts/Post'
 import Notifications from '../dashboard/Notifications'
 
-class HomePage extends Component {
+class PostPage extends Component {
   render() {
     return (
       <div className="dashboard container">
@@ -19,4 +19,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage
+export default PostPage
