@@ -16,6 +16,7 @@ const routes = [
     },
     {
         path: "/posts/create",
+        isPrivate: true,
         component: NewPostPAge,
     },
     {

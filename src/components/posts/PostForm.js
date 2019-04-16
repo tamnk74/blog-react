@@ -1,14 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import { Control, Form, Errors, actions } from 'react-redux-form';
+
+import { postActions } from '../../actions'
 
 class PostForm extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(values) {
-    console.log('Creating this post: ', values);
+  handleSubmit(post) {
+    this.props.createPost(post);
   }
 
   render() {
@@ -49,4 +54,8 @@ class PostForm extends React.Component {
   }
 }
 
-export default PostForm;
+const mapDispatchToProps = dispatch => ({
+  createPost: post => dispatch(postActions.createPost(post))
+})
+
+export default connect(null, mapDispatchToProps)(PostForm);;

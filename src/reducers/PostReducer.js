@@ -8,7 +8,9 @@ export function posts(state = {}, action) {
       };
     case postConstants.LOGIN_FAILURE:
       return {};
-    case postConstants.CREATE_POST:
+    case postConstants.CREATE_POST_FAILED:
+      return {};
+    case postConstants.CREATE_POST_SUCCESS:
       return {};
     case postConstants.SHOW_POST:
       return { registering: true };
