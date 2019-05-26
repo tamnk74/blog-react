@@ -2,8 +2,36 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { authActions } from '../../actions'
-import AdminLinks from './AdminLinks'
+import { authActions } from '__ROOT/store/actions'
+
+const AdminLinks = () => {
+  return (
+    <li className="dropdown">
+      <a
+        className="dropdown-toggle"
+        id="navbarDropdownMenuAdminLink"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >Administration<span className="caret"></span>
+      </a>
+      <ul className="dropdown-menu" role="menu">
+        <li>
+          <NavLink to="/admin/posts">All posts</NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/categories">All categories</NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/users">All users</NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/tags">All tags</NavLink>
+        </li>
+      </ul>
+    </li>
+  )
+}
 
 class SignedInLinks extends React.Component {
 

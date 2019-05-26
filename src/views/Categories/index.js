@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Post } from '../../components/posts/Post'
-import Notifications from '../../components/dashboard/Notifications'
+import { Category } from '__ROOT/components/categories/Category'
+import Notifications from '__ROOT/components/dashboard/Notifications'
 
-class Home extends Component {
+class Categories extends Component {
   render() {
     return (
       <div className="dashboard container">
         <div className="row">
           <div className="col-md-9">
-            <Post type="top"/>
+            <Category/>
           </div>
           <div className="col-md-3">
             <Notifications />
@@ -19,4 +19,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default Categories

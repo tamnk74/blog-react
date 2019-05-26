@@ -2,9 +2,12 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV || 'development',
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      __ROOT: path.resolve(__dirname, 'src'),
+    },
   },
   output: {
     publicPath: "/",
@@ -14,7 +17,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         loader: 'babel-loader'
       },
       {

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import PostList from './PostList'
-import { postActions } from '../../actions'
+import * as postActions from '__ROOT/store/actions/post'
 import Pagination from "react-js-pagination";
 
 class Post extends React.Component {
@@ -34,14 +34,18 @@ class Post extends React.Component {
     }
     return (
       <Fragment>
-        <PostList posts={posts}/>
-        <Pagination
-          activePage={pageInfo.page}
-          itemsCountPerPage={limit}
-          totalItemsCount={pageInfo.count}
-          pageRangeDisplayed={5}
-          onChange={this.handlePageChange}
-        />
+        <PostList posts={posts} />
+        <div className="row">
+          <div className="col-md-12 text-center">
+            <Pagination
+              activePage={pageInfo.page}
+              itemsCountPerPage={limit}
+              totalItemsCount={pageInfo.count}
+              pageRangeDisplayed={5}
+              onChange={this.handlePageChange}
+            />
+          </div>
+        </div>
       </Fragment>
     )
   }

@@ -1,48 +1,56 @@
-import React from "react";
 
-import HomePage from '../components/pages/HomePage';
-import PostPage from '../components/pages/PostPage';
-import NewPostPAge from '../components/pages/NewPostPage';
-import { SignIn, SignUp } from '../components/auth';
-import PostPageAdmin from '../components/admin/posts/PostPageAdmin';
-import PageNotFound from '../components/pages/PageNotFound';
+import Home from '__ROOT/views/Home';
+import Posts from '__ROOT/views/Posts';
+// import Categories from '__ROOT/views/Categories';
+import PostCreate from '../views/Posts/Create';
+import { Login } from '__ROOT/views/Login';
+import { SignUp } from '__ROOT/views/SignUp';
+// import AdminPosts from '../views/admin/posts/Post';
+import NotFound from '__ROOT/views/NotFound';
 
 
 const routes = [
-    {
-        path: "/",
-        exact: true,
-        component: HomePage
-    },
-    {
-        path: "/posts/create",
-        isPrivate: true,
-        component: NewPostPAge,
-    },
-    {
-        path: "/posts",
-        exact: true,
-        component: PostPage,
-        routes: [
-        ]
-    },
-    {
-        path: "/login",
-        component: SignIn
-    },
-    {
-      path: "/sign-up",
-      component: SignUp
-    },
-    {
-      path: "/admin/posts",
-      exact: true,
-      component: PostPageAdmin
-    },
-    {
-      path: "",
-      component: PageNotFound
-    }
+  {
+    path: "/",
+    exact: true,
+    component: Home
+  },
+  {
+      path: "/posts/create",
+      isPrivate: true,
+      component: PostCreate,
+  },
+  {
+    path: "/posts",
+    exact: true,
+    component: Posts,
+    routes: [
+    ]
+  },
+  //   {
+  //     path: "/categories",
+  //     exact: true,
+  //     component: Categories,
+  //     routes: [
+  //     ]
+  // },
+  {
+      path: "/login",
+      component: Login
+  },
+  {
+    path: "/signup",
+    component: SignUp
+  },
+  // {
+  //   path: "/admin/posts",
+  //   exact: true,
+  //   component: AdminPosts
+  // },
+  {
+    path: "",
+    component: NotFound
+  }
 
 ];
 

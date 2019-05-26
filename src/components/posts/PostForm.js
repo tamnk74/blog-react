@@ -1,61 +1,31 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
 
-import { Control, Form, Errors, actions } from 'react-redux-form';
+import { postActions } from '__ROOT/store/actions/post'
 
-import { postActions } from '../../actions'
-
-class PostForm extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(post) {
-    this.props.createPost(post);
-  }
-
-  render() {
-    return (
-      <Form model="newPost" onSubmit={(values) => this.handleSubmit(values)}>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <Control.text model="newPost.title" className="form-control" validators={{
-            required: (val) => !!val.length,
-            minLength: (val) => val.length > 8,
-          }} />
-          <Errors
-            model="newPost.title"
-            messages={{
-              required: 'Please enter an title.',
-              minLength: 'The title is too short.',
-            }}/>
-        </div>
-        <div className="form-group">
-          <label htmlFor="content">Content:</label>
-          <Control.textarea model="newPost.content" className="form-control" validators={{
-            required: (val) => !!val.length,
-            minLength: (val) => val.length > 10,
-          }} />
-          <Errors
-            model="newPost.content"
-            messages={{
-              required: 'Please enter an content.',
-              minLength: 'The title is too short.',
-            }}/>
-        </div>
-        <div>
-          <button type="submit" className="btn btn-info">Submit</button>
-          <button type="reset" className="btn btn-default">Reset</button>
-        </div>
-      </Form>
-    )
-  }
+let PostForm = props => {
+  const { handleSubmit, post = {} } = props
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="title">Title</label>
+        <Field name="title" component="input" type="text" className="form-control" value="post.title"/>
+      </div>
+      <div className="form-group">
+        <label htmlFor="content">Content:</label>
+        <Field name="content" component="textarea" className="form-control" rows="10" value="post.content"/>
+      </div>
+      <div className="row text-center">
+        <button type="submit" className="btn btn-info">Submit</button>
+        <button type="reset" className="btn btn-default">Reset</button>
+      </div>
+    </form>
+  )
 }
 
-const mapDispatchToProps = dispatch => ({
-  createPost: post => dispatch(postActions.createPost(post))
-})
+PostForm = reduxForm({
+  form: 'post'
+})(PostForm)
 
-export default connect(null, mapDispatchToProps)(PostForm);;
+export default PostForm
