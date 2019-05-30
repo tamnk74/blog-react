@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
 import PostForm from "__ROOT/components/posts/PostForm";
-import { createPost } from "__ROOT/store/actions/post";
 
 class PostCreate extends Component {
-  /**
-   * Submit form
-   * @param {Object} post 
-   */
-  submit = (post) => {
-    this.props.createPost(post);
+  constructor(props) {
+    const id = this.props.match.params.id;
+  }
+  
+  submit(values) {
+    // print the form values to the console
+    console.log(values)
   }
 
   render() {
@@ -27,11 +26,4 @@ class PostCreate extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  createPost: post => dispatch(createPost(post))
-})
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(PostCreate)
+export default PostCreate

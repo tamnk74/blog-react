@@ -1,5 +1,5 @@
 import { authConstants } from '../constants';
-import { authService } from '__ROOT/services';
+import { authService } from '__ROOT/store/services';
 import { history } from '__ROOT/lib/utils';
 import Email from '__ROOT/lib/utils/Email';
 

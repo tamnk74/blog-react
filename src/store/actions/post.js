@@ -1,5 +1,5 @@
 import { postConstants } from '__ROOT/store/constants';
-import { postService } from '__ROOT/services';
+import * as postService from '../services/PostService';
 
 export const getPosts = (type = null, page, limit) => {
   return dispatch => {

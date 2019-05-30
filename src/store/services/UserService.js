@@ -1,4 +1,4 @@
-import Request from '../lib/utils/Request'
+import Request from '__ROOT/lib/utils/Request'
 
 export const userService = {
     login,

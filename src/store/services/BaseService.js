@@ -1,4 +1,4 @@
-import Request from '../lib/utils/Request'
+import Request from '__ROOT/lib/utils/Request'
 
 export default class BaseService {
 
@@ -15,7 +15,7 @@ export default class BaseService {
    * Get all data
    */
   getAll() {
-    return Repository.get(`${this.resource}`);
+    return Request.get(`${this.resource}`);
   }
 
   /**
@@ -24,7 +24,7 @@ export default class BaseService {
    * @param {Object} paymoad params for pagination like page, limit
    */
   paginate(payload) {
-    return Repository.get(`${this.resource}`, payload);
+    return Request.get(`${this.resource}`, payload);
   }
   
   /**
@@ -33,7 +33,7 @@ export default class BaseService {
    * @param {*} id id of object
    */
   getOne(id) {
-    return Repository.get(`${this.resource}/${id}`);
+    return Request.get(`${this.resource}/${id}`);
   }
 
   /**
@@ -42,7 +42,7 @@ export default class BaseService {
    * @param {Object} payload 
    */
   create(payload) {
-    return Repository.post(`${this.resource}`, payload);
+    return Request.post(`${this.resource}`, payload);
   }
 
   /**
@@ -52,7 +52,7 @@ export default class BaseService {
    * @param {*} id 
    */
   update(payload, id) {
-    return Repository.put(`${this.resource + id}`, payload);
+    return Request.put(`${this.resource + id}`, payload);
   }
 
   /**
@@ -61,6 +61,6 @@ export default class BaseService {
    * @param {*} id 
    */
   remove(id) {
-    return Repository.delete(`${this.resource + id}`);
+    return Request.delete(`${this.resource + id}`);
   }
 };
