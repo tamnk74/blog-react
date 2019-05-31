@@ -10,6 +10,7 @@ class PostCreate extends Component {
    */
   submit = (post) => {
     this.props.createPost(post);
+    this.props.history.push('/myposts');
   }
 
   render() {

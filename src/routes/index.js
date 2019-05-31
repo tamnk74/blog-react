@@ -1,6 +1,7 @@
 
 import Home from '__ROOT/views/Home';
 import Posts from '__ROOT/views/Posts';
+import MyPosts from '__ROOT/views/MyPosts';
 // import Categories from '__ROOT/views/Categories';
 import PostCreate from '../views/Posts/Create';
 import { Login } from '__ROOT/views/Login';
@@ -24,6 +25,13 @@ const routes = [
     path: "/posts",
     exact: true,
     component: Posts,
+    routes: [
+    ]
+  },
+  {
+    path: "/myposts",
+    exact: true,
+    component: MyPosts,
     routes: [
     ]
   },

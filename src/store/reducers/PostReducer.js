@@ -1,23 +1,31 @@
 import { postConstants } from '../constants';
 
-export function posts(state = {}, action) {
+const initState = {
+  total: 0,
+  posts: [],
+  post: {},
+  page: 1,
+  limit: 5
+}
+export function posts(state = initState, action) {
   switch (action.type) {
-    case postConstants.LIST_POST_SUCCESS:
+    case postConstants.POST_LIST:
       return {
-        list: action.posts
+        ...state,
+        posts: action.posts
       };
-    case postConstants.LOGIN_FAILURE:
-      return {};
-    case postConstants.CREATE_POST_FAILED:
-      return {};
-    case postConstants.CREATE_POST_SUCCESS:
-      return {};
-    case postConstants.SHOW_POST:
-      return { registering: true };
-    case postConstants.GET_POST:
-      return {};
-    case postConstants.UPDATE_POST:
-      return {};
+    case postConstants.PAGE_INFO:
+      return {
+        ...state,
+        total: action.count,
+        page: action.page
+      };
+    case postConstants.DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post.id != action.post.id),
+        total: state.total - 1
+      };
     default:
       return state
   }

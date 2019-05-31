@@ -25,6 +25,16 @@ export function getPosts(type, page = 1, limit = 10) {
     });
 }
 
+export function getMyPosts(options = {}) {
+  return Request.get('/my-posts', options)
+    .then(res => {
+      const posts = res.data;
+      return posts;
+    }, error => {
+      return Promise.reject(error);
+    });
+}
+
 export function index() { };
 export function create(post) {
   return Request.post('/posts', post)
@@ -35,4 +45,11 @@ export function create(post) {
     });
 };
 export function update() { };
-export function remove() { };
+export function remove(post) {
+  return Request.delete('/posts/' + post.id)
+    .then(res => {
+      return res.data;
+    }, error => {
+      return Promise.reject(error);
+    });
+};
