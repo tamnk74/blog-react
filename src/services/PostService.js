@@ -3,6 +3,7 @@ import { debug } from 'util';
 
 export const postService = {
   getPosts,
+  getPost,
   index,
   update,
   create,
@@ -32,6 +33,21 @@ function getPosts(type, page = 1, limit = 10) {
       }
       const posts = res.data;
       return posts;
+    }, error => {
+      if (error.response && error.response.data) {
+        return Promise.reject(error.response.data.error);
+      }
+      return Promise.reject(error);
+    });
+}
+
+function getPost(slug) {
+  return axios.get('http://localhost:3000/api/posts/' + slug)
+    .then(res => {
+      if (res.data.error) {
+        return Promise.reject(res.data.error.message);
+      }
+      return res.data.data;
     }, error => {
       if (error.response && error.response.data) {
         return Promise.reject(error.response.data.error);

@@ -6,6 +6,10 @@ export function posts(state = {}, action) {
       return {
         list: action.posts
       };
+    case postConstants.GET_POST_SUCCESS:
+      return {
+        post: action.post
+      };
     case postConstants.LOGIN_FAILURE:
       return {};
     case postConstants.CREATE_POST_FAILED:
