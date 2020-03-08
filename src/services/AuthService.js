@@ -15,7 +15,7 @@ function login(username, password) {
     const email = validateEmail(username) ? username : false;
     const name = !email && username;
 
-    return axios.post('http://localhost:3000/api/auth/login', {
+    return axios.post('http://localhost:3000/api/login', {
         email: email || undefined,
         name: name || undefined,
         password: password

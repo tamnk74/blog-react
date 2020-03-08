@@ -1,9 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
-import { Control, Form, Errors, actions } from 'react-redux-form';
-
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { postActions } from '../../actions'
+import classNames from 'classnames'
+
+const PostSchema = Yup.object().shape({
+  title: Yup.string()
+    .min(10, 'Your title is too short!')
+    .max(127, 'Your title is too long!')
+    .required('Please enter your title'),
+  content: Yup.string()
+    .min(100, 'Your content is too short!')
+    .max(1000000, 'Your title is too long!')
+    .required('Please enter your content'),
+});
 
 class PostForm extends React.Component {
 
@@ -17,39 +28,41 @@ class PostForm extends React.Component {
   }
 
   render() {
+    const initialValues = {
+      title: '',
+      content: '',
+    }
     return (
-      <Form model="newPost" onSubmit={(values) => this.handleSubmit(values)}>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <Control.text model="newPost.title" className="form-control" validators={{
-            required: (val) => !!val.length,
-            minLength: (val) => val.length > 8,
-          }} />
-          <Errors
-            model="newPost.title"
-            messages={{
-              required: 'Please enter an title.',
-              minLength: 'The title is too short.',
-            }}/>
-        </div>
-        <div className="form-group">
-          <label htmlFor="content">Content:</label>
-          <Control.textarea model="newPost.content" className="form-control" validators={{
-            required: (val) => !!val.length,
-            minLength: (val) => val.length > 10,
-          }} />
-          <Errors
-            model="newPost.content"
-            messages={{
-              required: 'Please enter an content.',
-              minLength: 'The title is too short.',
-            }}/>
-        </div>
-        <div>
-          <button type="submit" className="btn btn-info">Submit</button>
-          <button type="reset" className="btn btn-default">Reset</button>
-        </div>
-      </Form>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={PostSchema}
+        onSubmit={(values) => this.handleSubmit(values)}>
+        {({ errors, touched }) => (
+          <Form>
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <Field name="title" className={
+                classNames({
+                  'form-control': true,
+                  'is-invalid': errors.title,
+                })
+              } />
+              <div className="invalid-feedback"><ErrorMessage name="title" /></div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="content">Content</label>
+              <Field name="content" as="textarea" className={
+                classNames({
+                  'form-control': true,
+                  'is-invalid': errors.content,
+                })
+              }/>
+              <div className="invalid-feedback"><ErrorMessage name="content" /></div>
+            </div>
+            <button type="submit" className="btn btn-info">Submit</button>
+          </Form>
+        )}
+      </Formik>
     )
   }
 }

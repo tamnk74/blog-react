@@ -3,7 +3,7 @@ import PostSummary from './PostSummary'
 import css from './Post.css'
 
 const mrt15 = {
-  marginTop: '-15px',
+  marginTop: '15px',
 };
 
 const PostList = ({ posts }) => {
@@ -13,7 +13,7 @@ const PostList = ({ posts }) => {
   ));
 
   return (
-    <div className="row post-list-mgt" style={mrt15}>
+    <div className="row" style={mrt15}>
       <ul className="list-group"> {postList}</ul>
     </div>
   )
