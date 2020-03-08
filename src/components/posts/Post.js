@@ -34,8 +34,10 @@ class Post extends React.Component {
     }
     return (
       <Fragment>
-        <PostList posts={posts}/>
+        <PostList posts={posts} />
         <Pagination
+          itemClass="page-item"
+          linkClass="page-link"
           activePage={pageInfo.page}
           itemsCountPerPage={limit}
           totalItemsCount={pageInfo.count}

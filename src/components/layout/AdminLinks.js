@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const AdminLinks = () => {
     return (
         <Fragment>
-            <li><Link to="/admin/dashboard">Dashboard</Link></li>
-            <li><Link to="/admin/users">Users</Link></li>
-            <li><Link to="/admin/posts">Posts</Link></li>
-            <li><Link to="/admin/tags">Tags</Link></li>
+            <li className="nav-item"><Link to="/admin/dashboard" className="nav-link">Dashboard</Link></li>
+            <li className="nav-item"><Link to="/admin/users" className="nav-link">Users</Link></li>
+            <li className="nav-item"><Link to="/admin/posts" className="nav-link">Posts</Link></li>
+            <li className="nav-item"><Link to="/admin/tags" className="nav-link">Tags</Link></li>
         </Fragment>
     )
 }

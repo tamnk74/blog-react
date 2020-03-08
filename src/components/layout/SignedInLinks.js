@@ -20,20 +20,20 @@ class SignedInLinks extends React.Component {
   render() {
     const user = this.props.user;
     return (
-      <ul className="nav navbar-nav navbar-right">
+      <ul className="navbar-nav navbar-right">
         { user.role == 'ADMIN' && 
           <AdminLinks />
         }
-        <li className="dropdown open">
-          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+        <li className="nav-item dropdown">
+          <a href="#" className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" role="button" aria-expanded="true">
             {user.name} <span className="caret"></span>
           </a>
-          <ul className="dropdown-menu" role="menu">
-            <li><NavLink to='/myposts'>My Posts</NavLink></li>
-            <li><NavLink to='/posts/create'>New Posts</NavLink></li>
-            <li><NavLink to='/profile'>Profile</NavLink></li>
-            <li><a onClick={this.handleLogout} href="#">Logout</a></li>
-          </ul>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" role="menu">
+            <NavLink to='/myposts' className="dropdown-item">My Posts</NavLink>
+            <NavLink to='/posts/create' className="dropdown-item">New Posts</NavLink>
+            <NavLink to='/profile' className="dropdown-item">Profile</NavLink>
+            <a onClick={this.handleLogout} href="#" className="dropdown-item">Logout</a>
+          </div>
         </li>
       </ul>
     )
