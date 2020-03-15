@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import PostTable from './PostTable'
-import { postActions } from '../../../actions'
+import PostTable from './PostTable';
+import { postActions } from '../../../actions';
 import Pagination from "react-js-pagination";
 
 class Post extends React.Component {
@@ -16,12 +16,20 @@ class Post extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  componentWillMount() {
-    this.props.dispatch(postActions.getPosts(this.props.type, this.state.page, this.state.limit));
+  componentDidMount() {
+    console.log('AAA');
+    console.log(postActions.getPosts({
+      page: this.state.page,
+      limit: this.state.limit,
+    }));
+    this.props.dispatch(postActions.getPosts({
+      page: this.state.page,
+      limit: this.state.limit,
+    }));
   }
 
   handlePageChange(page) {
-    this.props.dispatch(postActions.getPosts(this.props.type, page, this.state.limit));
+    // this.props.dispatch(postActions.getPosts(this.state));
   }
 
   render() {
@@ -48,10 +56,11 @@ class Post extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { data, pageInfo } = state.post && state.post.list || {};
+  console.log('AAAAAAAAAAAAAAAAAAAAAAAAA');
+  const { items, pageInfo } = state.posts || {};
   return {
-    posts: data || [],
-    pageInfo: pageInfo
+    posts: items || [],
+    pageInfo: pageInfo,
   };
 }
 
