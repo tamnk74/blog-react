@@ -19,7 +19,7 @@ class Navbar extends React.Component {
             <ul className="navbar-nav mr-auto">
               <li className="nav-item"><Link to='/posts' className="nav-link">Posts</Link></li>
               <li className="nav-item"><Link to='/categories' className="nav-link">Categories</Link></li>
-              <li className="nav-item"><Link to='/tags' className="nav-link">Tags</Link></li>
+              {/* <li className="nav-item"><Link to='/tags' className="nav-link">Tags</Link></li> */}
             </ul>
             <form className="form-inline my-2 my-lg-0" role="search">
               <input type="text" className="form-control" placeholder="Search" name="q" />
@@ -27,7 +27,7 @@ class Navbar extends React.Component {
                 <i className="fa fa-search" aria-hidden="true"></i>
               </button>
             </form>
-            {auth.loggedIn ? <SignedInLinks user={auth.user} /> : <SignedOutLinks />}
+            {auth.user ? <SignedInLinks user={auth.user} /> : <SignedOutLinks />}
           </div>
 
         </div>

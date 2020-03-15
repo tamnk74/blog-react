@@ -1,7 +1,8 @@
 import React from 'react';
 
 import HomePage from '../containers/HomePage';
-import {PostPage} from '../containers/PostPage';
+import { PostPage } from '../containers/PostPage';
+import { MyPostPage } from '../containers/PostPage/MyPostPage';
 import { PostDetail } from '../containers/PostPage/PostDetail';
 import NewPostPage from '../containers/PostPage/NewPostPage';
 import { SignIn, SignUp } from '../containers/AuthPage';
@@ -24,6 +25,13 @@ const routes = [
     path: '/posts',
     exact: true,
     component: PostPage,
+    routes: [
+    ]
+  },
+  {
+    path: '/me/posts',
+    exact: true,
+    component: MyPostPage,
     routes: [
     ]
   },

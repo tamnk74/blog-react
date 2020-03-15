@@ -11,7 +11,7 @@ const authReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case authConstants.LOGIN_SUCCESS:
-        draft.loggedIn = true,
+        console.log(action);
         draft.user = action.user
         break;
       default:

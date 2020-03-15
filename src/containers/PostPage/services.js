@@ -19,11 +19,11 @@ async function getPosts(options) {
 }
 
 async function getPost(slug) {
-  const res = await axios.get('http://localhost:3000/api/posts/' + slug)
+  const res = await axios.get('http://localhost:3000/api/posts' + slug)
   return jaDeserializer.deserialize(res.data);
 }
 async function create(post) {
-  const url = 'http://localhost:3000/api/posts/';
+  const url = 'http://localhost:3000/api/me/posts';
   const res = await axios.post(url, post);
   return res.data;
 };

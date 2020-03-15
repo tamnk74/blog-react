@@ -12,8 +12,8 @@ const PostTable = ({ posts }) => {
       if (column === 'action') {
         return (<td key={j}>
           <div className="btn-group">
-            <Link to={'/admin/posts/' + post.id + '/edit'} className="btn btn-default btn-xs"><i className="glyphicon glyphicon-edit"></i></Link>
-            <button className="btn btn-danger btn-xs"><i className="glyphicon glyphicon-trash"></i></button>
+            <Link to={'/admin/posts/' + post.id + '/edit'} className="btn btn-default btn-xs"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></Link>
+            <button className="btn btn-danger btn-xs"><i className="fa fa-trash-o" aria-hidden="true"></i></button>
           </div>
         </td>);
       }
@@ -21,21 +21,26 @@ const PostTable = ({ posts }) => {
         return (<td key={j}>
           <Link to={'/admin/posts/' + post.id} >{post.title}</Link>
         </td>);
-      } 
-      return (<td key= {j}>{ post[column]}</td>);
-      })}</tr>
+      }
+      if (column === 'content') {
+        return (<td key={j}>
+          {post.content.slice(0, 200)}
+        </td>);
+      }
+      return (<td key={j}>{post[column]}</td>);
+    })}</tr>
   ));
 
   const postHeader = columns.map((column, i) => (
-        <td key={i}>{column}</td>
-    ))
-    
+    <td key={i}>{column}</td>
+  ))
+
   return (
-        <table className="table table-hover">
-    <thead><tr>{postHeader}</tr></thead>
-        <tbody>{postRows}</tbody>
-        </table>
-      )
+    <table className="table table-hover">
+      <thead><tr>{postHeader}</tr></thead>
+      <tbody>{postRows}</tbody>
+    </table>
+  )
 }
 
 export default PostTable

@@ -15,7 +15,7 @@ const postReducer = (state = initialState, action) =>
         draft.post = action.post
         break;
       default:
-        return;
+        break;
     }
   });
 
