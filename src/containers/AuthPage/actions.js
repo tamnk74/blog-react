@@ -4,6 +4,7 @@ import { history } from '../../utils';
 
 export const authActions = {
   login,
+  getUserInfo,
   logout,
   register,
 };
@@ -11,44 +12,48 @@ export const authActions = {
 function login(username, password) {
   return dispatch => {
     authService.login(username, password)
-      .then(
-        user => {
-          dispatch(success(user));
-          history.push('/');
-        },
-        error => {
-          dispatch(failure(error));
-        }
-      );
+      .then(user => {
+        dispatch({ type: authConstants.LOGIN_SUCCESS, user });
+        history.push('/');
+      }).catch(error => dispatch({
+        type: authConstants.ERROR,
+        error
+      }));
   };
-  function success(user) { return { type: authConstants.LOGIN_SUCCESS, user } }
-  function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
+}
+
+function getUserInfo() {
+  return dispatch => {
+    authService.getUserInfo()
+      .then(user => {
+        dispatch({
+          type: authConstants.LOGIN_SUCCESS,
+          user
+        });
+      }).catch(error => dispatch({
+        type: authConstants.ERROR,
+        error
+      }));
+  };
 }
 
 function logout() {
   authService.logout();
-  return { type: authConstants.LOGOUT };
+  return dispatch => dispatch({
+    type: authConstants.LOGOUT
+  })
 }
 
 function register(user) {
   return dispatch => {
     dispatch(request(user));
-
     authService.register(user)
-      .then(
-        user => {
-          dispatch(success());
-          history.push('/login');
-          dispatch(alertActions.success('Registration successful'));
-        },
-        error => {
-          dispatch(failure(error.toString()));
-          dispatch(alertActions.error(error.toString()));
-        }
-      );
-  };
-
-  function request(user) { return { type: authConstants.REGISTER_REQUEST, user } }
-  function success(user) { return { type: authConstants.REGISTER_SUCCESS, user } }
-  function failure(error) { return { type: authConstants.REGISTER_FAILURE, error } }
+      .then(user => {
+        dispatch({ type: authConstants.REGISTER_REQUEST, user });
+        history.push('/login');
+      }).catch(error => dispatch({
+        type: authConstants.ERROR,
+        error
+      }));
+  }
 }

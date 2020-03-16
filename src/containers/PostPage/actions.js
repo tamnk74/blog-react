@@ -3,6 +3,7 @@ import { postService } from './services';
 
 export const postActions = {
   getPosts,
+  getMyPosts,
   getPost,
   createPost
 };
@@ -16,7 +17,21 @@ function getPosts(options) {
         posts
       })
     } catch (error) {
-      dispatch({ type: postConstants.LIST_POST_FAILED, error });
+      dispatch({ type: postConstants.ERROR, error });
+    }
+  }
+}
+
+function getMyPosts(options) {
+  return async dispatch => {
+    try {
+      const posts = await postService.getMyPosts(options);
+      dispatch({
+        type: postConstants.LIST_POST,
+        posts
+      })
+    } catch (error) {
+      dispatch({ type: postConstants.ERROR, error });
     }
   }
 }
@@ -31,7 +46,7 @@ function getPost(slug) {
       });
     } catch (error) {
       dispatch({
-        type: postConstants.GET_POST_FAILED,
+        type: postConstants.ERROR,
         error
       });
     }

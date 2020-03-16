@@ -9,7 +9,7 @@ class SignIn extends React.Component {
     super(props);
 
     // reset login status
-    this.props.dispatch(authActions.logout());
+    // this.props.dispatch(authActions.logout());
 
     this.state = {
       username: 'tamnk',
@@ -71,12 +71,9 @@ class SignIn extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { loggingIn } = state.auth;
-  return {
-    loggingIn
-  };
-}
+const mapStateToProps = (state) =>({
+  token: state.auth.token,
+})
 
 const connectedSignIn = connect(mapStateToProps)(SignIn);
 export { connectedSignIn as SignIn }; 

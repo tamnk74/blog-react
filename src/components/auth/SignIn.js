@@ -9,7 +9,7 @@ class SignIn extends React.Component {
     super(props);
 
     // reset login status
-    this.props.dispatch(authActions.logout());
+    // this.props.dispatch(authActions.logout());
 
     this.state = {
       username: 'tamnk',

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PostList from './PostList'
 import { postActions } from './actions'
 import Pagination from "react-js-pagination";
+import wrapLayout from '../../components/layouts/default';
 
 class PostPage extends React.Component {
 
@@ -58,5 +59,5 @@ const mapStateToProps = state => ({
   pageInfo: state.posts.pageInfo
 })
 
-const connectedPostPage = connect(mapStateToProps)(PostPage);
+const connectedPostPage = wrapLayout(connect(mapStateToProps)(PostPage));
 export { connectedPostPage as PostPage }; 

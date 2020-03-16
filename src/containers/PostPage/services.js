@@ -7,6 +7,7 @@ const jaDeserializer = new JSONAPIDeserializer();
 export const postService = {
   getPosts,
   getPost,
+  getMyPosts,
   update,
   create,
   remove
@@ -14,6 +15,12 @@ export const postService = {
 
 async function getPosts(options) {
   const url = `http://localhost:3000/api/posts?${queryString.stringify(options)}`;
+  const res = await axios.get(url);
+  return jaDeserializer.deserialize(res.data);
+}
+
+async function getMyPosts(options) {
+  const url = `http://localhost:3000/api/me/posts?${queryString.stringify(options)}`;
   const res = await axios.get(url);
   return jaDeserializer.deserialize(res.data);
 }

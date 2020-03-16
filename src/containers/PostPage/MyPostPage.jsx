@@ -21,14 +21,14 @@ class MyPostPage extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(postActions.getPosts({
+    this.props.dispatch(postActions.getMyPosts({
       ...this.state,
       sort: this.props.sort,
     }));
   }
 
   handlePageChange(page) {
-    this.props.dispatch(postActions.getPosts(this.props.type, page, this.state.limit));
+    this.props.dispatch(postActions.getMyPosts(this.props.type, page, this.state.limit));
   }
 
   render() {

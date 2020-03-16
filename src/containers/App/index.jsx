@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config'
+import { connect } from 'react-redux'
 
 import { history } from '../../utils';
 import { Navbar } from './Navbar';
 import routes from '../../routes'
+import { authActions } from '../AuthPage/actions';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    localStorage.getItem('jwt')
+    localStorage.getItem('token')
       ? <Component {...props} />
       : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
   )} />
@@ -21,7 +22,11 @@ class App extends Component {
   constructor(props) {
     super(props);
   }
-
+  componentWillMount() {
+    if(localStorage.getItem('token')) {
+      this.props.dispatch(authActions.getUserInfo());
+    }
+  }
   render() {
     return (
       <div className="App">
@@ -48,5 +53,9 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  token: state.auth.token,
+})
 
-export default App; 
+const connectedApp = connect(mapStateToProps)(App);
+export { connectedApp as App };

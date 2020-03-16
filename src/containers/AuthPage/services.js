@@ -5,6 +5,7 @@ const jaDeserializer = new JSONAPIDeserializer();
 export const authService = {
   login,
   logout,
+  getUserInfo,
   register
 };
 
@@ -23,22 +24,21 @@ async function login(username, password) {
     password: password
   });
   const {token} = await jaDeserializer.deserialize(res.data);
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    localStorage.setItem('token', token);
-  }
-  else {
-    delete axios.defaults.headers.common['Authorization'];
-    localStorage.removeItem('token');
-  }
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  localStorage.setItem('token', token);
+  const userData = await axios.get('http://localhost:3000/api/me');
+  return jaDeserializer.deserialize(userData.data);
+}
 
-  return token;
+async function getUserInfo() {
+  const userData = await axios.get('http://localhost:3000/api/me');
+  return jaDeserializer.deserialize(userData.data);
 }
 
 function logout() {
   // remove user from local storage to log user out
   localStorage.removeItem('user');
-  localStorage.removeItem('jwt');
+  localStorage.removeItem('token');
 }
 
 function register(user) {
@@ -52,10 +52,8 @@ function register(user) {
 }
 
 function handleResponse(response) {
-  console.log('Response1: ', response);
   return response.text().then(text => {
     const data = text && JSON.parse(text);
-    console.log('Response2: ', data);
     if (!response.ok) {
       if (response.status === 401) {
         // auto logout if 401 response returned from api
