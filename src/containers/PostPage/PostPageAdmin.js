@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { PostPage } from './index'
 
 class PostPageAdmin extends Component {
-  render() { 
+  render() {
     return (
       <div className="dashboard container">
         <div className="row">
           <div className="col-md-9">
-            <PostPage type="latest"/>
+            <PostPage type="latest" />
           </div>
           <div className="col-md-3">
             <Notifications />
@@ -18,4 +18,6 @@ class PostPageAdmin extends Component {
   }
 }
 
-export default PostPageAdmin
+export {
+  PostPageAdmin
+}

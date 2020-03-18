@@ -5,7 +5,8 @@ export const postActions = {
   getPosts,
   getMyPosts,
   getPost,
-  createPost
+  createPost,
+  updatePost,
 };
 
 function getPosts(options) {
@@ -41,7 +42,7 @@ function getPost(slug) {
     try {
       const post = await postService.getPost(slug);
       dispatch({
-        type: postConstants.GET_POST_SUCCESS,
+        type: postConstants.SET_POST,
         post
       });
     } catch (error) {
@@ -63,9 +64,13 @@ function createPost(postData) {
       });
     } catch (error) {
       dispatch({
-        type: postConstants.CREATE_POST_FAILED,
+        type: postConstants.ERROR,
         error
       })
     }
   };
+}
+
+function updatePost(post) {
+  return postService.update(post);
 }

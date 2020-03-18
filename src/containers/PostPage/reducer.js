@@ -14,7 +14,6 @@ const postReducer = (state = initialState, action) =>
       case postConstants.SET_POST:
         draft.post = action.post
         break;
-        break;
       case postConstants.ERROR:
         draft.error = action.error;
         console.log(action.error);

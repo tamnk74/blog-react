@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const PostTable = ({ posts }) => {
+const PostTable = ({ posts, removePost }) => {
 
   const columns = ['no', 'title', 'content', 'view', 'action'];
   const postRows = posts.map((post, i) => (
@@ -12,14 +12,14 @@ const PostTable = ({ posts }) => {
       if (column === 'action') {
         return (<td key={j}>
           <div className="btn-group">
-            <Link to={'/admin/posts/' + post.id + '/edit'} className="btn btn-default btn-xs"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></Link>
-            <button className="btn btn-danger btn-xs"><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+            <Link to={'/me/posts/' + post.id + '/edit'} className="btn btn-default btn-xs"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></Link>
+            <button className="btn btn-danger btn-xs" onClick={post => removePost(post)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
           </div>
         </td>);
       }
       if (column === 'title') {
         return (<td key={j}>
-          <Link to={'/admin/posts/' + post.id} >{post.title}</Link>
+          <Link to={'/me/posts/' + post.id} >{post.title}</Link>
         </td>);
       }
       if (column === 'content') {

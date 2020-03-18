@@ -1,5 +1,6 @@
 import React from 'react'
 import { history } from '../../utils';
+import wrapLayout from '../../components/layouts/default';
 
 const NotFoundPage = ({ location }) => {
   return (
@@ -7,9 +8,9 @@ const NotFoundPage = ({ location }) => {
       <h3>
         Page not found for this path <code>{location.pathname}</code>
       </h3>
-      <button onClick={() => history.goBack()} >Go back</button>
+      <button className="btn btn-default" onClick={() => history.goBack()} >Go back</button>
     </div>
   );
 }
 
-export default NotFoundPage;
+export default wrapLayout(NotFoundPage);

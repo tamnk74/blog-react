@@ -1,15 +1,12 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import PostTable from '../../components/posts/PostTable'
+import PostList from './PostList'
 import { postActions } from './actions'
-import Pagination from 'react-js-pagination';
+import Pagination from "react-js-pagination";
 import wrapLayout from '../../components/layouts/default';
 
-
-
-
-class MyPostPage extends React.Component {
+class PostPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -21,23 +18,24 @@ class MyPostPage extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(postActions.getMyPosts({
+    console.log(this.props.sort);
+    this.props.dispatch(postActions.getPosts({
       ...this.state,
       sort: this.props.sort,
     }));
   }
 
   handlePageChange(page) {
-    this.props.dispatch(postActions.getMyPosts(this.props.type, page, this.state.limit));
+    this.props.dispatch(postActions.getPosts(this.props.type, page, this.state.limit));
   }
 
   render() {
     const { posts, pageInfo } = this.props;
     const { limit } = this.state;
     return (
-      <div className="container">
+      <Fragment>
         {posts &&
-          <PostTable posts={posts}/>
+          <PostList posts={posts} />
         }
         {pageInfo &&
           <Pagination
@@ -50,7 +48,7 @@ class MyPostPage extends React.Component {
             onChange={this.handlePageChange}
           />
         }
-      </div>
+      </Fragment>
     )
   }
 }
@@ -61,5 +59,5 @@ const mapStateToProps = state => ({
   pageInfo: state.posts.pageInfo
 })
 
-const connectedPostPage = wrapLayout(connect(mapStateToProps)(MyPostPage));
-export { connectedPostPage as MyPostPage }; 
+const connectedPostPage = wrapLayout(connect(mapStateToProps)(PostPage));
+export { connectedPostPage as PostPage }; 
