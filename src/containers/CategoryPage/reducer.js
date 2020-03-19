@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { postConstants } from './constants';
+import { categoryConstants } from './constants';
 
 // The initial state of the App
 export const initialState = {
@@ -8,16 +8,10 @@ export const initialState = {
 const postReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case postConstants.LIST_POST:
-        draft.items = action.posts
+      case categoryConstants.LIST_CATEGORY:
+        draft.items = action.categories
         break;
-      case postConstants.SET_POST:
-        draft.post = action.post
-        break;
-      case postConstants.REMOVE_POST:
-        draft.items = state.items.filter(item => item.id != action.post.id)
-        break;
-      case postConstants.ERROR:
+      case categoryConstants.ERROR:
         draft.error = action.error;
         console.log(action.error);
         break;

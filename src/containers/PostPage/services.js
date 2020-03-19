@@ -26,7 +26,7 @@ async function getMyPosts(options) {
 }
 
 async function getPost(slug) {
-  const res = await axios.get('http://localhost:3000/api/posts' + slug)
+  const res = await axios.get('http://localhost:3000/api/posts/' + slug)
   return jaDeserializer.deserialize(res.data);
 }
 async function create(post) {
@@ -34,5 +34,13 @@ async function create(post) {
   const res = await axios.post(url, post);
   return res.data;
 };
-function update() { };
-function remove() { };
+async function update(post) {
+  const url = `http://localhost:3000/api/me/posts/${post.id}`;
+  const res = await axios.patch(url, post);
+  return res.data;
+};
+async function remove(post) {
+  const url = `http://localhost:3000/api/me/posts/${post.id}`;
+  const res = await axios.delete(url, post);
+  return res.data;
+ };

@@ -26,7 +26,7 @@ class PostDetail extends React.Component {
       <div className="container">
         <div className="card">
           <div className="card-header"><h2><Link to={`/posts/${post.slug}`}>{post.title}</Link></h2></div>
-          <div className="card-body" dangerouslySetInnerHTML={{__html: markdown.toHTML(post.content)}} ></div>
+          <div className="card-body" dangerouslySetInnerHTML={{ __html: markdown.toHTML(post.content) }} ></div>
           <div className="card-footer"><ul className="list-inline">
             <li><i className="fa fa-user"></i> By: <a href="#">{post.user && (post.user.fullName)}</a></li>
             <li>| <i className="fa fa-calendar" ></i> {moment(post.createdAt).format('DD-MMM-YYYY')} |</li>
@@ -42,13 +42,9 @@ class PostDetail extends React.Component {
   }
 }
 
-
-function mapStateToProps(state) {
-  const { post } = state.posts || {};
-  return {
-    post: post
-  };
-}
+const mapStateToProps = (state) => ({
+  post: state.posts.post
+})
 
 const connectedPostDetail = connect(mapStateToProps)(PostDetail);
 export { connectedPostDetail as PostDetail }; 

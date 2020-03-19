@@ -1,12 +1,22 @@
 import React from 'react';
 
 import {HomePage} from '../containers/HomePage';
-import { PostPage } from '../containers/PostPage';
-import { MyPostPage } from '../containers/PostPage/MyPostPage';
-import { PostDetail } from '../containers/PostPage/PostDetail';
-import NewPostPage from '../containers/PostPage/NewPostPage';
-import { SignIn, SignUp } from '../containers/AuthPage';
-import PostPageAdmin from '../containers/PostPage/PostPageAdmin';
+import { 
+  PostPage, 
+  MyPostPage, 
+  PostDetail,
+  NewPostPage,
+  EditPostPage,
+  PostPageAdmin,
+} from '../containers/PostPage';
+import { 
+  CategoryPage
+} from '../containers/CategoryPage';
+import { 
+  SignIn, 
+  SignUp,
+  ProfilePage,
+} from '../containers/AuthPage';
 import NotFoundPage from '../containers/NotFoundPage';
 
 const routes = [
@@ -36,8 +46,26 @@ const routes = [
     ]
   },
   {
+    path: '/me/posts/:id/edit',
+    isPrivate: true,
+    component: EditPostPage,
+  },
+  {
+    path: '/me/posts/:slug',
+    component: PostDetail,
+    routes: [
+    ]
+  },
+  {
     path: '/posts/:slug',
     component: PostDetail,
+    routes: [
+    ]
+  },
+  {
+    path: '/categories',
+    exact: true,
+    component: CategoryPage,
     routes: [
     ]
   },
@@ -48,6 +76,10 @@ const routes = [
   {
     path: '/sign-up',
     component: SignUp
+  },
+  {
+    path: '/profile',
+    component: ProfilePage
   },
   {
     path: '/admin/posts',

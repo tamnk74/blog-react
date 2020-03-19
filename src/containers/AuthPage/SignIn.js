@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import wrapLayout from '../../components/layouts/default';
 import { authActions } from './actions';
 
 class SignIn extends React.Component {
@@ -41,7 +41,7 @@ class SignIn extends React.Component {
     const { loggingIn } = this.props;
     const { username, password, submitted } = this.state;
     return (
-      <div className="col-md-6 col-md-offset-3">
+      <div className="col-md-9">
         <h2>Login</h2>
         <form name="form" onSubmit={this.handleSubmit}>
           <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
@@ -75,5 +75,5 @@ const mapStateToProps = (state) =>({
   token: state.auth.token,
 })
 
-const connectedSignIn = connect(mapStateToProps)(SignIn);
+const connectedSignIn = wrapLayout(connect(mapStateToProps)(SignIn));
 export { connectedSignIn as SignIn }; 

@@ -36,12 +36,9 @@ class Navbar extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { auth } = state;
-  return {
-    auth
-  };
-}
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
 
 const connectedNavbar = connect(mapStateToProps)(Navbar);
 export { connectedNavbar as Navbar }; 
