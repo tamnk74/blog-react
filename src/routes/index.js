@@ -9,6 +9,9 @@ import {
   EditPostPage,
   PostPageAdmin,
 } from '../containers/PostPage';
+import { 
+  CategoryPage
+} from '../containers/CategoryPage';
 import { SignIn, SignUp } from '../containers/AuthPage';
 import NotFoundPage from '../containers/NotFoundPage';
 
@@ -52,6 +55,13 @@ const routes = [
   {
     path: '/posts/:slug',
     component: PostDetail,
+    routes: [
+    ]
+  },
+  {
+    path: '/categories',
+    exact: true,
+    component: CategoryPage,
     routes: [
     ]
   },
