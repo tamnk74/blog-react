@@ -14,6 +14,9 @@ const postReducer = (state = initialState, action) =>
       case postConstants.SET_POST:
         draft.post = action.post
         break;
+      case postConstants.REMOVE_POST:
+        draft.items = state.items.filter(item => item.id != action.post.id)
+        break;
       case postConstants.ERROR:
         draft.error = action.error;
         console.log(action.error);

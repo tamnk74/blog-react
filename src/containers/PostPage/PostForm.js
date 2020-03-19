@@ -39,7 +39,7 @@ export default function PostForm({ onSubmit, post }) {
           </div>
           <div className="form-group">
             <label htmlFor="content">Content</label>
-            <Field name="content" as="textarea" className={
+            <Field name="content" as="textarea" rows="20" cols="80" className={
               classNames({
                 'form-control': true,
                 'is-invalid': errors.content,

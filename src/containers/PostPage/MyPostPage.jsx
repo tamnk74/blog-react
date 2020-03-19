@@ -1,13 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import PostTable from '../../components/posts/PostTable'
 import { postActions } from './actions'
 import Pagination from 'react-js-pagination';
 import wrapLayout from '../../components/layouts/default';
-
-
-
 
 class MyPostPage extends React.Component {
 
@@ -21,23 +18,23 @@ class MyPostPage extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(postActions.getMyPosts({
+    this.props.getMyPosts({
       ...this.state,
       sort: this.props.sort,
-    }));
+    });
   }
 
   handlePageChange(page) {
-    this.props.dispatch(postActions.getMyPosts(this.props.type, page, this.state.limit));
+    this.props.getMyPosts(page, this.state.limit, this.props.sort);
   }
 
   render() {
-    const { posts, pageInfo } = this.props;
+    const { posts, pageInfo, removePost } = this.props;
     const { limit } = this.state;
     return (
       <div className="container">
         {posts &&
-          <PostTable posts={posts}/>
+          <PostTable posts={posts} removePost={removePost}/>
         }
         {pageInfo &&
           <Pagination
@@ -61,5 +58,10 @@ const mapStateToProps = state => ({
   pageInfo: state.posts.pageInfo
 })
 
-const connectedPostPage = wrapLayout(connect(mapStateToProps)(MyPostPage));
+const mapDispatchToProps = dispatch => ({
+  removePost: post => dispatch(postActions.removePost(post)),
+  getMyPosts: (page, limit, sort) => dispatch(postActions.getMyPosts(page, limit, sort))
+})
+
+const connectedPostPage = wrapLayout(connect(mapStateToProps, mapDispatchToProps)(MyPostPage));
 export { connectedPostPage as MyPostPage }; 

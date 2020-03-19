@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { postActions } from './actions'
 import PostForm from './PostForm'
 import { history } from '../../utils';
+import wrapLayout from '../../components/layouts/default';
 
 class EditPostPage extends Component {
   constructor(props) {
@@ -19,16 +20,11 @@ class EditPostPage extends Component {
   }
 
   render() {
-    const {post} = this.props;
-    console.log(post);
+    const { post } = this.props;
     return (
-      <div className="dashboard container">
-        <div className="row">
-          <div className="col-md-9">
-            <PostForm post={post} onSubmit={post => this.handleSubmit(post)}/>
-          </div>
-          <div className="col-md-3">
-          </div>
+      <div className="row">
+        <div className="col-md-12">
+          <PostForm post={post} onSubmit={post => this.handleSubmit(post)} />
         </div>
       </div>
     )
@@ -39,5 +35,5 @@ const mapStateToProps = (state) => ({
   post: state.posts.post
 })
 
-const connectedEditPostPage = connect(mapStateToProps)(EditPostPage);
+const connectedEditPostPage = wrapLayout(connect(mapStateToProps)(EditPostPage));
 export { connectedEditPostPage as EditPostPage }; 

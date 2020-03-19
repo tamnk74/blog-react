@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom'
 const PostTable = ({ posts, removePost }) => {
 
   const columns = ['no', 'title', 'content', 'view', 'action'];
+  const confirmRemovePost = (post) => {
+    if(window.confirm('Are you sure to remove this post?')) {
+      removePost(post);
+    }
+  }
   const postRows = posts.map((post, i) => (
     <tr key={post.id}>{columns.map((column, j) => {
       if (column === 'no') {
@@ -13,7 +18,7 @@ const PostTable = ({ posts, removePost }) => {
         return (<td key={j}>
           <div className="btn-group">
             <Link to={'/me/posts/' + post.id + '/edit'} className="btn btn-default btn-xs"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></Link>
-            <button className="btn btn-danger btn-xs" onClick={post => removePost(post)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+            <button className="btn btn-danger btn-xs" onClick={() => confirmRemovePost(post)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
           </div>
         </td>);
       }
