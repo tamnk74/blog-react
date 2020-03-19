@@ -12,7 +12,11 @@ import {
 import { 
   CategoryPage
 } from '../containers/CategoryPage';
-import { SignIn, SignUp } from '../containers/AuthPage';
+import { 
+  SignIn, 
+  SignUp,
+  ProfilePage,
+} from '../containers/AuthPage';
 import NotFoundPage from '../containers/NotFoundPage';
 
 const routes = [
@@ -72,6 +76,10 @@ const routes = [
   {
     path: '/sign-up',
     component: SignUp
+  },
+  {
+    path: '/profile',
+    component: ProfilePage
   },
   {
     path: '/admin/posts',
