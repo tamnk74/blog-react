@@ -8,6 +8,8 @@ import { history } from '../../utils';
 import { Navbar } from './Navbar';
 import routes from '../../routes'
 import { authActions } from '../AuthPage/actions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
@@ -18,12 +20,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 class App extends Component {
-
   constructor(props) {
     super(props);
   }
+
+  notify = (message) => toast.error(message, {
+    position: toast.POSITION.TOP_RIGHT
+  });
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.error && nextProps.error !== this.props.error) {
+      this.notify(nextProps.error.data);
+    }
+  }
+
   componentWillMount() {
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
       this.props.dispatch(authActions.getUserInfo());
     }
   }
@@ -36,6 +48,7 @@ class App extends Component {
         >
           <meta name="description" content="A React.js blog application" />
         </Helmet>
+        <ToastContainer />
         <Router history={history}>
           <Navbar />
           <Switch>
@@ -55,7 +68,8 @@ class App extends Component {
 }
 const mapStateToProps = state => ({
   token: state.auth.token,
-})
+  error: state.auth.error || state.posts.error || state.categories.error,
+});
 
 const connectedApp = connect(mapStateToProps)(App);
 export { connectedApp as App };
