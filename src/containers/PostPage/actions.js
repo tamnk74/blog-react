@@ -19,7 +19,7 @@ function getPosts(options) {
         posts
       })
     } catch (error) {
-      dispatch({ type: postConstants.ERROR, error });
+      dispatch({ type: postConstants.ERROR, error: error.response });
     }
   }
 }
@@ -33,7 +33,7 @@ function getMyPosts(options) {
         posts
       })
     } catch (error) {
-      dispatch({ type: postConstants.ERROR, error });
+      dispatch({ type: postConstants.ERROR, error: error.response });
     }
   }
 }
@@ -49,7 +49,7 @@ function getPost(slug) {
     } catch (error) {
       dispatch({
         type: postConstants.ERROR,
-        error
+        error: error.response
       });
     }
   };
@@ -66,7 +66,7 @@ function createPost(postData) {
     } catch (error) {
       dispatch({
         type: postConstants.ERROR,
-        error
+        error: error.response
       })
     }
   };
@@ -87,7 +87,7 @@ function removePost(post) {
     } catch (error) {
       dispatch({
         type: postConstants.ERROR,
-        error
+        error: error.response
       })
     }
   };
