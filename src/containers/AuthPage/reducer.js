@@ -17,6 +17,9 @@ const authReducer = (state = initialState, action) =>
       case authConstants.LOGOUT:
         draft.user = null
         break;
+      case authConstants.ERROR:
+        draft.error = action.error
+        break;
       default:
         return;
     }

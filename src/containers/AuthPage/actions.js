@@ -17,7 +17,7 @@ function login(username, password) {
         history.push('/');
       }).catch(error => dispatch({
         type: authConstants.ERROR,
-        error
+        error: error.response
       }));
   };
 }
@@ -32,7 +32,7 @@ function getUserInfo() {
         });
       }).catch(error => dispatch({
         type: authConstants.ERROR,
-        error
+        error: error.response
       }));
   };
 }
@@ -53,7 +53,7 @@ function register(user) {
         history.push('/login');
       }).catch(error => dispatch({
         type: authConstants.ERROR,
-        error
+        error: error.response
       }));
   }
 }
