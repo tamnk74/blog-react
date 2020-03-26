@@ -1,20 +1,8 @@
-import { categoryConstants } from './constants';
-import { categoryService } from './services';
+import * as types from './constants';
 
-export const categoryActions = {
-  getCategories,
-};
-
-function getCategories(options) {
-  return async dispatch => {
-    try {
-      const categories = await categoryService.getCategories(options);
-      dispatch({
-        type: categoryConstants.LIST_CATEGORY,
-        categories
-      })
-    } catch (error) {
-      dispatch({ type: categoryConstants.ERROR, error });
-    }
+export const getCategoriesAction = (options) => {
+  return {
+    type: types.GET_CATEGORIES,
+    options
   }
-}
+};

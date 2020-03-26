@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import PostList from '../PostPage/PostList'
-import { postActions } from '../PostPage/actions'
+import * as postActions from '../PostPage/actions'
 import Pagination from "react-js-pagination";
 import wrapLayout from '../../components/layouts/default';
 
@@ -18,7 +18,6 @@ class HomePage extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props.sort);
     this.props.dispatch(postActions.getPosts({
       ...this.state,
       sort: '-view',

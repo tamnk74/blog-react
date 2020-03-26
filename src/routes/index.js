@@ -1,15 +1,15 @@
 import React from 'react';
 
 import {HomePage} from '../containers/HomePage';
-import { 
-  PostPage, 
-  MyPostPage, 
+import {
+  PostPage,
+  MyPostPage,
   PostDetail,
   NewPostPage,
   EditPostPage,
   PostPageAdmin,
 } from '../containers/PostPage';
-import { 
+import {
   CategoryPage
 } from '../containers/CategoryPage';
 import { 

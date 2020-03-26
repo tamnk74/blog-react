@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { postActions } from './actions'
+import { getPost } from './actions'
 import moment from 'moment';
 import { markdown } from 'markdown';
 
@@ -12,7 +12,7 @@ class PostDetail extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(postActions.getPost(this.props.match.params.slug));
+    this.props.dispatch(getPost(this.props.match.params.slug));
   }
 
   render() {

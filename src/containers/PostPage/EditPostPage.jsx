@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { postActions } from './actions'
+import { updatePost, getPost } from './actions'
 import PostForm from './PostForm'
 import { history } from '../../utils';
 import wrapLayout from '../../components/layouts/default';
@@ -12,11 +12,11 @@ class EditPostPage extends Component {
   }
 
   handleSubmit(post) {
-    postActions.updatePost(post).then(() => history.push('/me/posts'))
+    updatePost(post).then(() => history.push('/me/posts'))
   }
 
   componentWillMount() {
-    this.props.dispatch(postActions.getPost(this.props.match.params.id));
+    this.props.dispatch(getPost(this.props.match.params.id));
   }
 
   render() {

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import PostTable from '../../components/posts/PostTable'
-import { postActions } from './actions'
+import { getMyPosts, removePost } from './actions'
 import Pagination from 'react-js-pagination';
 import wrapLayout from '../../components/layouts/default';
 
@@ -59,8 +59,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  removePost: post => dispatch(postActions.removePost(post)),
-  getMyPosts: (page, limit, sort) => dispatch(postActions.getMyPosts(page, limit, sort))
+  removePost: post => dispatch(removePost(post)),
+  getMyPosts: (page, limit, sort) => dispatch(getMyPosts(page, limit, sort))
 })
 
 const connectedPostPage = wrapLayout(connect(mapStateToProps, mapDispatchToProps)(MyPostPage));

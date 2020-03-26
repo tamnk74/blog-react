@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import wrapLayout from '../../components/layouts/default';
-import { authActions } from './actions';
+import {loginAction} from './actions';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -31,9 +31,11 @@ class SignIn extends React.Component {
 
     this.setState({ submitted: true });
     const { username, password } = this.state;
-    const { dispatch } = this.props;
     if (username && password) {
-      dispatch(authActions.login(username, password));
+      this.props.dispatch(loginAction({
+        username,
+        password
+      }));
     }
   }
 

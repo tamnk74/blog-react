@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { postActions } from './actions'
+import { createPost } from './actions'
 import PostForm from './PostForm'
 import { history } from '../../utils';
 import wrapLayout from '../../components/layouts/default';
@@ -27,7 +27,7 @@ class NewPostPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createPost: post => dispatch(postActions.createPost(post))
+  createPost: post => dispatch(createPost(post))
 })
 
 const connectedNewPostPage = wrapLayout(connect(null, mapDispatchToProps)(NewPostPage));

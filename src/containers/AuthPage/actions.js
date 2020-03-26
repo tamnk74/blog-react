@@ -1,59 +1,27 @@
-import { authConstants } from './constants';
-import { authService } from './services';
-import { history } from '../../utils';
+import * as types from './constants';
 
-export const authActions = {
-  login,
-  getUserInfo,
-  logout,
-  register,
+export const registerAction = (user) => {
+  return {
+    type: types.REGISTER_USER,
+    user
+  }
 };
 
-function login(username, password) {
-  return dispatch => {
-    authService.login(username, password)
-      .then(user => {
-        dispatch({ type: authConstants.LOGIN_SUCCESS, user });
-        history.push('/');
-      }).catch(error => dispatch({
-        type: authConstants.ERROR,
-        error: error.response
-      }));
-  };
-}
-
-function getUserInfo() {
-  return dispatch => {
-    authService.getUserInfo()
-      .then(user => {
-        dispatch({
-          type: authConstants.LOGIN_SUCCESS,
-          user
-        });
-      }).catch(error => dispatch({
-        type: authConstants.ERROR,
-        error: error.response
-      }));
-  };
-}
-
-function logout() {
-  authService.logout();
-  return dispatch => dispatch({
-    type: authConstants.LOGOUT
-  })
-}
-
-function register(user) {
-  return dispatch => {
-    dispatch(request(user));
-    authService.register(user)
-      .then(user => {
-        dispatch({ type: authConstants.REGISTER_REQUEST, user });
-        history.push('/login');
-      }).catch(error => dispatch({
-        type: authConstants.ERROR,
-        error: error.response
-      }));
+export const loginAction = (user) => {
+  return {
+    type: types.LOGIN_USER,
+    user
   }
-}
+};
+
+export const logoutAction = () => {
+  return {
+    type: types.LOGOUT_USER,
+  }
+};
+
+export const getUserAction = () => {
+  return {
+    type: types.GET_AUTH_USER_INFO
+  }
+};

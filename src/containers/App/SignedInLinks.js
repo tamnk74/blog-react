@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { authActions } from '../AuthPage/actions'
+import { logoutAction } from '../AuthPage/actions'
 import AdminLinks from './AdminLinks'
 
 class SignedInLinks extends React.Component {
@@ -14,7 +14,7 @@ class SignedInLinks extends React.Component {
 
   handleLogout(e) {
     e.preventDefault();
-    this.props.dispatch(authActions.logout());
+    this.props.dispatch(logoutAction);
   }
 
   render() {

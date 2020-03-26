@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { authActions } from './actions';
+import { registerAction } from './actions';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -38,9 +38,8 @@ class SignUp extends React.Component {
 
     this.setState({ submitted: true });
     const { user } = this.state;
-    const { dispatch } = this.props;
     if (user.firstName && user.lastName && user.username && user.password) {
-      dispatch(authActions.register(user));
+      this.props.dispatch(registerAction(user));
     }
   }
 

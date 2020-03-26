@@ -1,17 +1,18 @@
 import produce from 'immer';
-import { categoryConstants } from './constants';
+import * as types  from './constants';
 
 // The initial state of the App
 export const initialState = {
+  items: [],
 };
 
 const postReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case categoryConstants.LIST_CATEGORY:
+      case types.SET_CATEGORIES:
         draft.items = action.categories
         break;
-      case categoryConstants.ERROR:
+      case types.ERROR:
         draft.error = action.error;
         console.log(action.error);
         break;

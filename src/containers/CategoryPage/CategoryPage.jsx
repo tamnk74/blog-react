@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import CategoryList from '../../components/categories/CategoryList'
-import { categoryActions } from './actions'
+import { getCategoriesAction } from './actions'
 import wrapLayout from '../../components/layouts/default';
 
 class CategoryPage extends React.Component {
@@ -12,7 +12,7 @@ class CategoryPage extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(categoryActions.getCategories());
+    this.props.dispatch(getCategoriesAction());
   }
 
   render() {

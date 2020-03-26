@@ -1,46 +1,25 @@
-import axios from 'axios'
-import { debug } from 'util';
-import queryString from 'query-string';
-import { Deserializer as JSONAPIDeserializer } from 'jsonapi-serializer';
-const jaDeserializer = new JSONAPIDeserializer();
+import request from '../../utils/request';
 
-export const postService = {
-  getPosts,
-  getPost,
-  getMyPosts,
-  update,
-  create,
-  remove
+export const getPosts = (options) => {
+  return request.get('/api/posts', options);
 };
 
-async function getPosts(options) {
-  const url = `http://localhost:3000/api/posts?${queryString.stringify(options)}`;
-  const res = await axios.get(url);
-  return jaDeserializer.deserialize(res.data);
-}
-
-async function getMyPosts(options) {
-  const url = `http://localhost:3000/api/me/posts?${queryString.stringify(options)}`;
-  const res = await axios.get(url);
-  return jaDeserializer.deserialize(res.data);
-}
-
-async function getPost(slug) {
-  const res = await axios.get('http://localhost:3000/api/posts/' + slug)
-  return jaDeserializer.deserialize(res.data);
-}
-async function create(post) {
-  const url = 'http://localhost:3000/api/me/posts';
-  const res = await axios.post(url, post);
-  return res.data;
+export const getMyPosts = (options) => {
+  return request.get('/me/posts', options);
 };
-async function update(post) {
-  const url = `http://localhost:3000/api/me/posts/${post.id}`;
-  const res = await axios.patch(url, post);
-  return res.data;
+
+export const getPost = (slug) => {
+  return request.get('/api/posts/' + slug);
 };
-async function remove(post) {
-  const url = `http://localhost:3000/api/me/posts/${post.id}`;
-  const res = await axios.delete(url, post);
-  return res.data;
- };
+
+export const create = (post) => {
+  return request.post('/me/posts', post);
+};
+
+export const update = (post) => {
+  return request.patch(`/me/posts/${post.id}`, post);
+};
+
+export const remove = (post) => {
+  return request.delete(`/me/posts/${post.id}`, post);
+};

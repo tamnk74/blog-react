@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import PostList from './PostList'
-import { postActions } from './actions'
+import {getPosts} from './actions'
 import Pagination from "react-js-pagination";
 import wrapLayout from '../../components/layouts/default';
 
@@ -19,14 +19,14 @@ class PostPage extends React.Component {
 
   componentWillMount() {
     console.log(this.props.sort);
-    this.props.dispatch(postActions.getPosts({
+    this.props.dispatch(getPosts({
       ...this.state,
       sort: this.props.sort,
     }));
   }
 
   handlePageChange(page) {
-    this.props.dispatch(postActions.getPosts(this.props.type, page, this.state.limit));
+    this.props.dispatch(getPosts(this.props.type, page, this.state.limit));
   }
 
   render() {

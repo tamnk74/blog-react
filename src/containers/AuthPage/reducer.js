@@ -1,9 +1,9 @@
 import produce from 'immer';
-import { authConstants } from './constants';
+import * as types from './constants';
 import axios from 'axios';
 
 const token = localStorage.getItem('token');
-const initialState = token ? { token } : {};
+const initialState = token ? {token} : {};
 if (token) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 }
@@ -11,13 +11,19 @@ if (token) {
 const authReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case authConstants.LOGIN_SUCCESS:
+      case types.LOGIN_SUCCESS:
         draft.user = action.user
         break;
-      case authConstants.LOGOUT:
+      case types.SET_USER:
+        draft.user = action.user
+        break;
+      case types.REMOVE_USER:
         draft.user = null
         break;
-      case authConstants.ERROR:
+      case types.LOGOUT:
+        draft.user = null
+        break;
+      case types.ERROR:
         draft.error = action.error
         break;
       default:

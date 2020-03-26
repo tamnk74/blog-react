@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { history } from '../../utils';
 import { Navbar } from './Navbar';
 import routes from '../../routes'
-import { authActions } from '../AuthPage/actions';
+import {getUserAction} from '../AuthPage/actions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,13 +30,13 @@ class App extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.error && nextProps.error !== this.props.error) {
-      this.notify(nextProps.error.data);
+      nextProps.error.data && this.notify(nextProps.error.data);
     }
   }
 
   componentWillMount() {
     if (localStorage.getItem('token')) {
-      this.props.dispatch(authActions.getUserInfo());
+      this.props.dispatch(getUserAction());
     }
   }
   render() {

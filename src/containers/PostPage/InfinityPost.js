@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
 import PostList from './PostList'
-import { postActions } from './actions'
+import { getPosts } from './actions'
 import Pagination from "react-js-pagination";
 
 class InfinityPost extends React.Component {
@@ -38,11 +38,11 @@ class InfinityPost extends React.Component {
 
   componentWillMount() {
     // Loads some posts on initial load
-    this.props.dispatch(postActions.getPosts(this.props.type, this.state.page, this.state.limit));
+    this.props.dispatch(getPosts(this.props.type, this.state.page, this.state.limit));
   }
 
   loadMorePosts() {
-    this.props.dispatch(postActions.getPosts(this.props.type, page, this.state.limit));
+    this.props.dispatch(getPosts(this.props.type, page, this.state.limit));
   }
 
   render() {

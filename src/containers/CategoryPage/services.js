@@ -1,14 +1,5 @@
-import axios from 'axios'
-import queryString from 'query-string';
-import { Deserializer as JSONAPIDeserializer } from 'jsonapi-serializer';
-const jaDeserializer = new JSONAPIDeserializer();
+import request from '../../utils/request';
 
-export const categoryService = {
-  getCategories,
+export const getCategories = async (options) => {
+  return request.get('/api/categories', options);
 };
-
-async function getCategories(options) {
-  const url = `http://localhost:3000/api/categories?${queryString.stringify(options)}`;
-  const res = await axios.get(url);
-  return jaDeserializer.deserialize(res.data);
-}
