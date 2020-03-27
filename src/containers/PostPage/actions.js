@@ -7,16 +7,16 @@ export const getPosts = (options) => {
   }
 };
 
-export const getMyPosts = (posts) => {
+export const getMyPosts = (options) => {
   return {
-    type: types.LIST_MY_POSTS,
-    posts
+    type: types.FETCH_MY_POSTS,
+    options
   }
 };
 
 export const getPost = (post) => {
   return {
-    type: types.SET_POST,
+    type: types.FETCH_POST,
     post
   };
 };
@@ -38,7 +38,7 @@ export const updatePost = (post) => {
 
 export const removePost = (post) => {
   return {
-    type: types.REMOVE_POST,
+    type: types.FETCH_REMOVE_POST,
     post
   }
 }

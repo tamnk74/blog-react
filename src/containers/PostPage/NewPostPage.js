@@ -12,7 +12,7 @@ class NewPostPage extends Component {
   }
 
   handleSubmit(post) {
-    this.props.createPost(post).then(() => history.push('/me/posts'));
+    this.props.createPost(post);
   }
 
   render() {

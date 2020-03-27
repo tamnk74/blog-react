@@ -5,7 +5,7 @@ export const getPosts = (options) => {
 };
 
 export const getMyPosts = (options) => {
-  return request.get('/me/posts', options);
+  return request.get('/api/me/posts', options);
 };
 
 export const getPost = (slug) => {
@@ -13,13 +13,13 @@ export const getPost = (slug) => {
 };
 
 export const create = (post) => {
-  return request.post('/me/posts', post);
+  return request.post('/api/me/posts', post);
 };
 
-export const update = (post) => {
-  return request.patch(`/me/posts/${post.id}`, post);
+export const updatePost = (post) => {
+  return request.patch(`/api/me/posts/${post.id}`, post);
 };
 
-export const remove = (post) => {
-  return request.delete(`/me/posts/${post.id}`, post);
+export const removePost = (post) => {
+  return request.delete(`/api/me/posts/${post.id}`, post);
 };

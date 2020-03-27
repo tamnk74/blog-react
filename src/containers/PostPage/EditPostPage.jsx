@@ -12,7 +12,7 @@ class EditPostPage extends Component {
   }
 
   handleSubmit(post) {
-    updatePost(post).then(() => history.push('/me/posts'))
+    this.props.dispatch(updatePost(post));
   }
 
   componentWillMount() {

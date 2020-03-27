@@ -29,7 +29,11 @@ class Request {
   }
   async patch(path, payload){
     const response = await axios.patch(`${this.api}${path}`, payload);
-    return jaDeserializer.deserialize(response.data);
+    return response.data ? jaDeserializer.deserialize(response) : '';
+  }
+  async delete(path, payload){
+    const response = await axios.delete(`${this.api}${path}`, payload);
+    return response.data ? jaDeserializer.deserialize(response) : '';
   }
 }
 
