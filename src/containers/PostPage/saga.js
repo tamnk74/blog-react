@@ -16,11 +16,24 @@ export function* getPostsSaga(options) {
 export function* filterPostsSaga(options) {
   try {
     yield delay(500);
-    const query = yield select(state => state.app.query);
-    const response = yield call(getPosts, {
-      q: query
-    });
-    yield put({type: types.SET_POSTS, posts: response});
+    console.log(history.location);
+    if(history.location.pathname === '/' || history.location.pathname === '/posts') {
+      const query = yield select(state => state.app.query);
+      const response = yield call(getPosts, {
+        q: query,
+        limit: 20
+      });
+      yield put({type: types.SET_POSTS, posts: response});
+    }
+    if(history.location.pathname === '/me/posts') {
+      const query = yield select(state => state.app.query);
+      const response = yield call(getMyPosts, {
+        q: query,
+        limit: 20,
+      });
+      yield put({type: types.SET_POSTS, posts: response});
+    }
+
   } catch (error) {
     yield put({type: types.ERROR, error});
   }
