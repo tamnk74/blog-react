@@ -1,4 +1,4 @@
-import { put, call } from 'redux-saga/effects';
+import { put, call, delay } from 'redux-saga/effects';
 import { register, login, getUserInfo } from './services';
 
 import * as types from './constants'
@@ -27,6 +27,7 @@ export function* loginSaga(payload) {
 
 export function* logoutSaga() {
   try {
+    yield delay(500);
     yield put({ type: types.REMOVE_USER });
     localStorage.removeItem('token');
     history.push('/');

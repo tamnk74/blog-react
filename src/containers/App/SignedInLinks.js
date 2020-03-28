@@ -14,7 +14,7 @@ class SignedInLinks extends React.Component {
 
   handleLogout(e) {
     e.preventDefault();
-    this.props.dispatch(logoutAction);
+    this.props.dispatch(logoutAction());
   }
 
   render() {

@@ -8,30 +8,19 @@
  */
 
 import produce from 'immer';
-import { LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR } from './constants';
+import {LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR, SET_QUERY} from './constants';
 
 // The initial state of the App
 export const initialState = {
-  loading: false,
-  error: false,
+  query: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const appReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case LOAD_REPOS:
-        draft.loading = true;
-        draft.error = false;
-        break;
-
-      case LOAD_REPOS_SUCCESS:
-        draft.loading = false;
-        break;
-
-      case LOAD_REPOS_ERROR:
-        draft.error = action.error;
-        draft.loading = false;
+      case SET_QUERY:
+        draft.query = action.query;
         break;
     }
   });

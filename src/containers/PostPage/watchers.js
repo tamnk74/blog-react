@@ -5,14 +5,16 @@ import {
   createPostSage,
   getMyPostsSaga,
   updatePostsSaga,
-  removePostsSaga
+  removePostsSaga,
+  filterPostsSaga,
 } from './saga';
 
 import * as types from './constants';
-
+import {SET_QUERY} from "../App/constants";
 
 export default function* watchUserAuthentication() {
   yield takeLatest(types.LIST_POST, getPostsSaga);
+  yield takeLatest(SET_QUERY, filterPostsSaga);
   yield takeLatest(types.UPDATE_POST, updatePostsSaga);
   yield takeLatest(types.FETCH_REMOVE_POST, removePostsSaga);
   yield takeLatest(types.FETCH_POST, getPostSaga);

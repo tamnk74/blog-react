@@ -1,4 +1,4 @@
-import {put, call} from 'redux-saga/effects';
+import {put, call, select, delay} from 'redux-saga/effects';
 import {getPosts, getMyPosts, create, getPost, updatePost, removePost} from './services';
 
 import * as types from './constants'
@@ -7,6 +7,19 @@ import {history} from '../../utils/history'
 export function* getPostsSaga(options) {
   try {
     const response = yield call(getPosts, options.options);
+    yield put({type: types.SET_POSTS, posts: response});
+  } catch (error) {
+    yield put({type: types.ERROR, error});
+  }
+}
+
+export function* filterPostsSaga(options) {
+  try {
+    yield delay(500);
+    const query = yield select(state => state.app.query);
+    const response = yield call(getPosts, {
+      q: query
+    });
     yield put({type: types.SET_POSTS, posts: response});
   } catch (error) {
     yield put({type: types.ERROR, error});

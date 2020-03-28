@@ -11,16 +11,10 @@ if (token) {
 const authReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case types.LOGIN_SUCCESS:
-        draft.user = action.user
-        break;
       case types.SET_USER:
         draft.user = action.user
         break;
       case types.REMOVE_USER:
-        draft.user = null
-        break;
-      case types.LOGOUT:
         draft.user = null
         break;
       case types.ERROR:
