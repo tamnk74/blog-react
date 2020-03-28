@@ -18,7 +18,6 @@ class PostPage extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props.sort);
     this.props.dispatch(getPosts({
       ...this.state,
       sort: this.props.sort,

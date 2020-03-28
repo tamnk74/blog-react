@@ -21,9 +21,6 @@ const postReducer = (state = initialState, action) =>
         break;
       case types.ERROR:
         draft.error = action.error;
-        console.log(action.error);
-        break;
-      default:
         break;
     }
   });

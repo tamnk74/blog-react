@@ -11,7 +11,7 @@ export function* registerSaga(payload) {
       put({ type: types.REGISTER_USER_SUCCESS, response })
     ];
   } catch(error) {
-    yield put({ type: types.REGISTER_USER_ERROR, error });
+    yield put({ type: types.ERROR, error });
   }
 }
 
@@ -21,7 +21,9 @@ export function* loginSaga(payload) {
     yield put({ type: types.SET_USER, user });
     history.push('/');
   } catch(error) {
-    yield put({ type: types.LOGIN_ERROR, error })
+    yield put({ type: types.ERROR, error });
+    yield delay(1000);
+    yield put({ type: types.ERROR, error: null })
   }
 }
 
@@ -32,7 +34,7 @@ export function* logoutSaga() {
     localStorage.removeItem('token');
     history.push('/');
   } catch(error) {
-    yield put({ type: types.LOGIN_ERROR, error })
+    yield put({ type: types.ERROR, error })
   }
 }
 
@@ -43,5 +45,7 @@ export function* getUser() {
   } catch(error) {
     localStorage.removeItem('token');
     yield put({ type: types.ERROR, error })
+    yield delay(1000);
+    yield put({ type: types.ERROR, error: null })
   }
 }
