@@ -13,7 +13,7 @@ export function* getPostsSaga(options) {
   }
 }
 
-export function* filterPostsSaga(options) {
+export function* filterPostsSaga() {
   try {
     yield delay(500);
     console.log(history.location);

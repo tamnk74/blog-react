@@ -22,8 +22,6 @@ export function* loginSaga(payload) {
     history.push('/');
   } catch(error) {
     yield put({ type: types.ERROR, error });
-    yield delay(1000);
-    yield put({ type: types.ERROR, error: null })
   }
 }
 
@@ -44,8 +42,6 @@ export function* getUser() {
     yield put({ type: types.SET_USER, user });
   } catch(error) {
     localStorage.removeItem('token');
-    yield put({ type: types.ERROR, error })
-    yield delay(1000);
-    yield put({ type: types.ERROR, error: null })
+    yield put({ type: types.ERROR, error });
   }
 }

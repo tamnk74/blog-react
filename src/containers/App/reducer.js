@@ -8,10 +8,11 @@
  */
 
 import produce from 'immer';
-import {LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR, SET_QUERY} from './constants';
+import {LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR, SET_QUERY, SET_ERROR} from './constants';
 
 // The initial state of the App
 export const initialState = {
+  error: null,
   query: '',
 };
 
@@ -21,6 +22,9 @@ const appReducer = (state = initialState, action) =>
     switch (action.type) {
       case SET_QUERY:
         draft.query = action.query;
+        break;
+      case SET_ERROR:
+        draft.error = action.error;
         break;
     }
   });

@@ -68,7 +68,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   token: state.auth.token,
-  error: state.auth.error || state.posts.error || state.categories.error,
+  error: state.app.error,
 });
 
 const connectedApp = connect(mapStateToProps)(App);
