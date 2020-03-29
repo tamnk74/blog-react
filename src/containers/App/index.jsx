@@ -32,7 +32,13 @@ class App extends Component {
     nextProps.error && this.notify(nextProps.error);
   }
 
-  componentWillMount() {
+  // componentWillMount() {
+  //   if (localStorage.getItem('token')) {
+  //     this.props.dispatch(getUserAction());
+  //   }
+  // }
+
+  componentDidMount() {
     if (localStorage.getItem('token')) {
       this.props.dispatch(getUserAction());
     }
