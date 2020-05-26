@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import NotFound from '../../components/NotFound';
-import AddEditPage from './pages/AddEdit';
-import MainPage from './pages/Main';
+import { DetailPage } from './pages/Detail';
+import { MainPage } from './pages/Main';
 
-Photo.propTypes = {};
+Post.propTypes = {};
 
-function Photo(props) {
+function Post(props) {
   const match = useRouteMatch();
   console.log({ match });
 
@@ -14,12 +14,11 @@ function Photo(props) {
     <Switch>
       <Route exact path={match.url} component={MainPage} />
 
-      <Route path={`${match.url}/add`} component={AddEditPage} />
-      <Route path={`${match.url}/:photoId`} component={AddEditPage} />
+      <Route path={`${match.url}/:slug`} component={DetailPage} />
 
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-export default Photo;
+export default Post;

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { logoutAction } from '../AuthPage/actions'
+import { logoutAction } from '../../features/Auth/store/actions'
 import AdminLinks from './AdminLinks'
 
 class SignedInLinks extends React.Component {
@@ -21,7 +21,7 @@ class SignedInLinks extends React.Component {
     const user = this.props.user;
     return (
       <ul className="navbar-nav navbar-right">
-        { user.role == 'ADMIN' && 
+        {user.role == 'ADMIN' &&
           <AdminLinks />
         }
         <li className="nav-item dropdown">

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updatePost, getPost } from './actions'
-import PostForm from './PostForm'
-import { history } from '../../utils';
-import wrapLayout from '../../components/layouts/default';
+import { updatePost, getPost } from '../../store/actions'
+import PostForm from '../../components/PostForm'
+import { history } from '../../../../utils';
+import wrapLayout from '../../../../components/layouts/default';
 
 class EditPostPage extends Component {
   constructor(props) {

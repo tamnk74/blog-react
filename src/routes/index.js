@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {HomePage} from '../containers/HomePage';
+import {HomePage} from '../features/Home';
 import {
   PostPage,
   MyPostPage,

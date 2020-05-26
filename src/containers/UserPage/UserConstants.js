@@ -1,8 +1,0 @@
-export const userConstants = {
-  CREATE_USER: 'CREATE_USER',
-  SHOW_USER: 'SHOW_USER',
-  GET_USER: 'GET_USER',
-  UPDATE_USER: 'UPDATE_USER',
-  DELETE_USER: 'DELETE_USER',
-  LIST_USER: 'LIST_USER',
-};

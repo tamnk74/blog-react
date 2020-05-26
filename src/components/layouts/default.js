@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 // This function takes a component...
 export default function wrapLayout(WrappedComponent) {
@@ -7,7 +7,7 @@ export default function wrapLayout(WrappedComponent) {
     render() {
       return (
         <div className="col-md-8 offset-md-2">
-          <WrappedComponent {...this.props}/>
+          <WrappedComponent {...this.props} />
         </div>
       );
     }
