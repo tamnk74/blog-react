@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { getPost } from './../../store/actions'
@@ -11,8 +12,8 @@ class DetailPage extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
-    this.props.dispatch(getPost(this.props.match.params.slug));
+  componentDidMount() {
+    this.props.getPost(this.props.match.params.slug);
   }
 
   render() {
@@ -42,9 +43,23 @@ class DetailPage extends React.Component {
   }
 }
 
+DetailPage.propTypes = {
+  getPost: PropTypes.func,
+  post: PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      slug: PropTypes.string.isRequired
+    })
+  }),
+};
+
+const mapDispatchToProps = dispatch => ({
+  getPost: post => dispatch(getPost(post))
+})
+
 const mapStateToProps = (state) => ({
   post: state.posts.post
 })
 
-const connectedPostDetail = connect(mapStateToProps)(DetailPage);
+const connectedPostDetail = connect(mapStateToProps, mapDispatchToProps)(DetailPage);
 export { connectedPostDetail as DetailPage }; 

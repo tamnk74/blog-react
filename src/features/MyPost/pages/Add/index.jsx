@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createPost } from '../../../Post/store/actions'
+import PropTypes from 'prop-types';
+import { createPost } from '../../store/actions'
 import PostForm from '../../components/PostForm'
-import { history } from '../../../../utils';
 import wrapLayout from '../../../../components/layouts/default';
 
 class NewPostPage extends Component {
@@ -24,6 +24,10 @@ class NewPostPage extends Component {
       </div>
     )
   }
+}
+
+NewPostPage.propTypes = {
+  createPost: PropTypes.func,
 }
 
 const mapDispatchToProps = dispatch => ({
