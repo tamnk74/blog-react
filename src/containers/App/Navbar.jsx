@@ -4,8 +4,13 @@ import { connect } from 'react-redux';
 
 import { SignedInLinks } from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
+import {setQuery} from './actions';
 
 class Navbar extends React.Component {
+  handleChangeQuery = (e) => {
+    this.props.dispatch(setQuery(e.target.value));
+  };
+
   render() {
     const { auth } = this.props;
     return (
@@ -22,7 +27,7 @@ class Navbar extends React.Component {
               {/* <li className="nav-item"><Link to='/tags' className="nav-link">Tags</Link></li> */}
             </ul>
             <form className="form-inline my-2 my-lg-0" role="search">
-              <input type="text" className="form-control" placeholder="Search" name="q" />
+              <input type="text" className="form-control" placeholder="Search" name="q" onChange={this.handleChangeQuery}/>
               <button className="btn btn-default my-2 my-sm-0" type="submit">
                 <i className="fa fa-search" aria-hidden="true"></i>
               </button>

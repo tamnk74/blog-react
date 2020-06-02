@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { authActions } from '../AuthPage/actions'
+import { logoutAction } from '../../features/Auth/store/actions'
 import AdminLinks from './AdminLinks'
 
 class SignedInLinks extends React.Component {
@@ -14,14 +14,14 @@ class SignedInLinks extends React.Component {
 
   handleLogout(e) {
     e.preventDefault();
-    this.props.dispatch(authActions.logout());
+    this.props.dispatch(logoutAction());
   }
 
   render() {
     const user = this.props.user;
     return (
       <ul className="navbar-nav navbar-right">
-        { user.role == 'ADMIN' && 
+        {user.role == 'ADMIN' &&
           <AdminLinks />
         }
         <li className="nav-item dropdown">
@@ -30,7 +30,7 @@ class SignedInLinks extends React.Component {
           </a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" role="menu">
             <NavLink to='/me/posts' className="dropdown-item">My Posts</NavLink>
-            <NavLink to='/posts/create' className="dropdown-item">New Posts</NavLink>
+            <NavLink to='/me/posts/create' className="dropdown-item">New Posts</NavLink>
             <NavLink to='/profile' className="dropdown-item">Profile</NavLink>
             <a onClick={this.handleLogout} href="#" className="dropdown-item">Logout</a>
           </div>

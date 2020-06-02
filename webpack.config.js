@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.jsx', '.js']
   },
   output: {
     publicPath: "/",

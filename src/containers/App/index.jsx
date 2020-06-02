@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { Helmet } from 'react-helmet';
+import React, {Component} from 'react';
+import {Helmet} from 'react-helmet';
 
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux'
+import {Router, Route, Switch, Redirect} from 'react-router-dom';
+import {connect} from 'react-redux'
 
-import { history } from '../../utils';
-import { Navbar } from './Navbar';
+import {history} from '../../utils';
+import {Navbar} from './Navbar';
 import routes from '../../routes'
-import { authActions } from '../AuthPage/actions';
-import { ToastContainer, toast } from 'react-toastify';
+import {getUserAction} from '../AuthPage/actions';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({component: Component, ...rest}) => (
   <Route {...rest} render={props => (
     localStorage.getItem('token')
       ? <Component {...props} />
-      : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-  )} />
+      : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+  )}/>
 )
 
 class App extends Component {
@@ -29,16 +29,21 @@ class App extends Component {
   });
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.error && nextProps.error !== this.props.error) {
-      this.notify(nextProps.error.data);
+    nextProps.error && this.notify(nextProps.error);
+  }
+
+  // componentWillMount() {
+  //   if (localStorage.getItem('token')) {
+  //     this.props.dispatch(getUserAction());
+  //   }
+  // }
+
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.props.dispatch(getUserAction());
     }
   }
 
-  componentWillMount() {
-    if (localStorage.getItem('token')) {
-      this.props.dispatch(authActions.getUserInfo());
-    }
-  }
   render() {
     return (
       <div className="App">
@@ -46,18 +51,18 @@ class App extends Component {
           titleTemplate="%s - Sample Blog"
           defaultTitle="Sample React Blog"
         >
-          <meta name="description" content="A React.js blog application" />
+          <meta name="description" content="A React.js blog application"/>
         </Helmet>
-        <ToastContainer />
+        <ToastContainer/>
         <Router history={history}>
-          <Navbar />
+          <Navbar/>
           <Switch>
             {routes.map((route, i) => {
               if (route.isPrivate) {
-                return (<PrivateRoute key={i} exact={route.exact} path={route.path} component={route.component} />)
+                return (<PrivateRoute key={i} exact={route.exact} path={route.path} component={route.component}/>)
               }
               return (
-                <Route key={i} exact={route.exact} path={route.path} component={route.component} />
+                <Route key={i} exact={route.exact} path={route.path} component={route.component}/>
               )
             })}
           </Switch>
@@ -66,10 +71,11 @@ class App extends Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   token: state.auth.token,
-  error: state.auth.error || state.posts.error || state.categories.error,
+  error: state.app.error,
 });
 
 const connectedApp = connect(mapStateToProps)(App);
-export { connectedApp as App };
+export {connectedApp as App};

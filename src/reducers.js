@@ -1,14 +1,14 @@
-    
 import { combineReducers } from 'redux';
-
-import authReducer from './containers/AuthPage/reducer';
-import postReducer from './containers/PostPage/reducer';
-import categoryReducer from './containers/CategoryPage/reducer';
+import app from './containers/App/reducer';
+import auth from './features/Auth/store/reducer';
+import posts from './features/Post/store/reducer';
+import categories from './features/Category/store/reducer';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  posts: postReducer,
-  categories: categoryReducer,
+  app,
+  auth,
+  posts,
+  categories
 });
 
 export default rootReducer;
