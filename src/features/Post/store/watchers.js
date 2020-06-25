@@ -1,4 +1,4 @@
-import {takeLatest} from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import {
   getPostsSaga,
   getPostSaga,
@@ -10,7 +10,7 @@ import {
 } from './saga';
 
 import * as types from './constants';
-import {SET_QUERY} from "../../../containers/App/constants";
+import { SET_QUERY } from "../../App/store/constants";
 
 export default function* watchUserAuthentication() {
   yield takeLatest(types.LIST_POST, getPostsSaga);
