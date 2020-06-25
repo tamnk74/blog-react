@@ -1,4 +1,4 @@
-import {SET_QUERY} from './constants';
+import { SET_QUERY } from './constants';
 
 /**
  * Load the repositories, this action starts the request saga

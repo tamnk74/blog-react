@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { logoutAction } from '../../features/Auth/store/actions'
+import { logoutAction } from '../../Auth/store/actions'
 import AdminLinks from './AdminLinks'
 
 class SignedInLinks extends React.Component {

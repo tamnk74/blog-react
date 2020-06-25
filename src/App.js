@@ -5,7 +5,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux'
 
 import { history } from './utils';
-import { Navbar } from './containers/App/Navbar';
+import { Navbar } from './features/App/components/Navbar';
 import NotFound from './components/NotFound';
 import { HomePage } from './features/Home';
 import { SignIn, SignUp, Profile } from './features/Auth/pages';
