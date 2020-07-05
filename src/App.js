@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { history } from './utils';
 import { Navbar } from './features/App/components/Navbar';
 import NotFound from './components/NotFound';
+import Loading from './components/Loading';
 import { HomePage } from './features/Home';
 import { SignIn, SignUp, Profile } from './features/Auth/pages';
 import { getUserAction } from './features/Auth/store/actions';
@@ -53,7 +54,7 @@ class App extends Component {
           <meta name="description" content="A React.js blog application" />
         </Helmet>
         <ToastContainer />
-        <Suspense fallback={<div>Loading ...</div>}>
+        <Suspense fallback={<Loading />}>
           <Router history={history}>
             <Navbar />
             <Switch>
