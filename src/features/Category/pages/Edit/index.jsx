@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { updatePost, getPost } from './actions'
-import PostForm from './PostForm'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updatePost, getPost } from './actions';
+import PostForm from './PostForm';
 import { history } from '../../utils';
 import wrapLayout from '../../components/layouts/default';
 
@@ -15,7 +15,7 @@ class EditPostPage extends Component {
     this.props.dispatch(updatePost(post));
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.dispatch(getPost(this.props.match.params.id));
   }
 
@@ -24,16 +24,18 @@ class EditPostPage extends Component {
     return (
       <div className="row">
         <div className="col-md-12">
-          <PostForm post={post} onSubmit={post => this.handleSubmit(post)} />
+          <PostForm post={post} onSubmit={(post) => this.handleSubmit(post)} />
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
-  post: state.posts.post
-})
+  post: state.posts.post,
+});
 
-const connectedEditPostPage = wrapLayout(connect(mapStateToProps)(EditPostPage));
-export { connectedEditPostPage as EditPostPage }; 
+const connectedEditPostPage = wrapLayout(
+  connect(mapStateToProps)(EditPostPage),
+);
+export { connectedEditPostPage as EditPostPage };

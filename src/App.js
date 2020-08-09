@@ -2,7 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { Router, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import { history } from './utils';
 import { Navbar } from './features/App/components/Navbar';
@@ -24,11 +24,12 @@ class App extends Component {
     super(props);
   }
 
-  notify = (message) => toast.error(message, {
-    position: toast.POSITION.TOP_RIGHT
-  });
+  notify = (message) =>
+    toast.error(message, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     nextProps.error && this.notify(nextProps.error);
   }
 
@@ -75,7 +76,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   token: state.auth.token,
   error: state.app.error,
 });

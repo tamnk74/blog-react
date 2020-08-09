@@ -1,12 +1,11 @@
-import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import PostList from './PostList'
-import { getPosts } from './actions'
-import Pagination from "react-js-pagination";
+import PostList from './PostList';
+import { getPosts } from './actions';
+import Pagination from 'react-js-pagination';
 
 class InfinityPost extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -17,17 +16,16 @@ class InfinityPost extends React.Component {
     window.onscroll = () => {
       const {
         loadMorePosts,
-        state: {
-          error,
-          isLoading,
-          hasMore,
-        },
+        state: { error, isLoading, hasMore },
       } = this;
 
       if (error || isLoading || !hasMore) return;
 
       // Checks that the page has scrolled to the bottom
-      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      ) {
         console.log('Load next page');
         loadMorePosts();
       }
@@ -36,9 +34,11 @@ class InfinityPost extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // Loads some posts on initial load
-    this.props.dispatch(getPosts(this.props.type, this.state.page, this.state.limit));
+    this.props.dispatch(
+      getPosts(this.props.type, this.state.page, this.state.limit),
+    );
   }
 
   loadMorePosts() {
@@ -49,9 +49,7 @@ class InfinityPost extends React.Component {
     const { posts, pageInfo } = this.props;
     const { limit } = this.state;
     if (!posts || !pageInfo) {
-      return (
-        <div> No posts !</div>
-      )
+      return <div> No posts !</div>;
     }
     return (
       <Fragment>
@@ -64,18 +62,17 @@ class InfinityPost extends React.Component {
           onChange={this.handlePageChange}
         />
       </Fragment>
-    )
+    );
   }
 }
 
-
 function mapStateToProps(state) {
-  const { data, pageInfo } = state.post && state.post.list || {};
+  const { data, pageInfo } = (state.post && state.post.list) || {};
   return {
     posts: data || [],
-    pageInfo: pageInfo
+    pageInfo: pageInfo,
   };
 }
 
 const connectedInfinityPost = connect(mapStateToProps)(InfinityPost);
-export { connectedInfinityPost as InfinityPost }; 
+export { connectedInfinityPost as InfinityPost };

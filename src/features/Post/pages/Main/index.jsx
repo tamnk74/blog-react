@@ -1,13 +1,12 @@
-import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import PostList from '../../components/PostList'
-import { getPosts } from '../../store/actions'
-import Pagination from "react-js-pagination";
+import PostList from '../../components/PostList';
+import { getPosts } from '../../store/actions';
+import Pagination from 'react-js-pagination';
 import wrapLayout from '../../../../components/layouts/default';
 
 class MainPage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -17,11 +16,13 @@ class MainPage extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  componentWillMount() {
-    this.props.dispatch(getPosts({
-      ...this.state,
-      sort: this.props.sort,
-    }));
+  UNSAFE_componentWillMount() {
+    this.props.dispatch(
+      getPosts({
+        ...this.state,
+        sort: this.props.sort,
+      }),
+    );
   }
 
   handlePageChange(page) {
@@ -29,14 +30,12 @@ class MainPage extends React.Component {
   }
 
   render() {
-    const { posts, pageInfo } = this.props
-    const { limit } = this.state
+    const { posts, pageInfo } = this.props;
+    const { limit } = this.state;
     return (
       <Fragment>
-        {posts &&
-          <PostList posts={posts} />
-        }
-        {pageInfo &&
+        {posts && <PostList posts={posts} />}
+        {pageInfo && (
           <Pagination
             itemClass="page-item"
             linkClass="page-link"
@@ -46,16 +45,16 @@ class MainPage extends React.Component {
             pageRangeDisplayed={5}
             onChange={this.handlePageChange}
           />
-        }
+        )}
       </Fragment>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   posts: state.posts.items,
-  pageInfo: state.posts.pageInfo
-})
+  pageInfo: state.posts.pageInfo,
+});
 
-const connectedPostPage = wrapLayout(connect(mapStateToProps)(MainPage))
-export { connectedPostPage as MainPage }
+const connectedPostPage = wrapLayout(connect(mapStateToProps)(MainPage));
+export { connectedPostPage as MainPage };
