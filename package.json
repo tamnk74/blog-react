@@ -22,7 +22,7 @@
     "react-redux": "^6.0.1",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "2.1.8",
+    "react-scripts": "^3.4.1",
     "react-select": "^3.1.0",
     "react-toastify": "^5.5.0",
     "reactstrap": "^8.5.1",
