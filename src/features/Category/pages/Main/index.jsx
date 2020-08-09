@@ -1,17 +1,16 @@
-import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import CategoryList from '../../../../components/categories/CategoryList'
-import { getCategoriesAction } from '../../store/actions'
+import CategoryList from '../../../../components/categories/CategoryList';
+import { getCategoriesAction } from '../../store/actions';
 import wrapLayout from '../../../../components/layouts/default';
 
 class CategoryPage extends React.Component {
-
   constructor(props) {
     super(props);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.dispatch(getCategoriesAction());
   }
 
@@ -19,18 +18,17 @@ class CategoryPage extends React.Component {
     const { categories } = this.props;
     return (
       <Fragment>
-        {categories &&
-          <CategoryList categories={categories} />
-        }
+        {categories && <CategoryList categories={categories} />}
       </Fragment>
-    )
+    );
   }
 }
 
+const mapStateToProps = (state) => ({
+  categories: state.categories.items,
+});
 
-const mapStateToProps = state => ({
-  categories: state.categories.items
-})
-
-const connectedCategoryPage = wrapLayout(connect(mapStateToProps)(CategoryPage));
-export { connectedCategoryPage as CategoryPage }; 
+const connectedCategoryPage = wrapLayout(
+  connect(mapStateToProps)(CategoryPage),
+);
+export { connectedCategoryPage as CategoryPage };

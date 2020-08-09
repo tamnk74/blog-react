@@ -1,13 +1,12 @@
-import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import PostList from '../Post/components/PostList'
-import * as postActions from '../Post/store/actions'
-import Pagination from "react-js-pagination";
+import PostList from '../Post/components/PostList';
+import * as postActions from '../Post/store/actions';
+import Pagination from 'react-js-pagination';
 import wrapLayout from '../../components/layouts/default';
 
 class HomePage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -17,15 +16,19 @@ class HomePage extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  componentWillMount() {
-    this.props.dispatch(postActions.getPosts({
-      ...this.state,
-      sort: '-view',
-    }));
+  UNSAFE_componentWillMount() {
+    this.props.dispatch(
+      postActions.getPosts({
+        ...this.state,
+        sort: '-view',
+      }),
+    );
   }
 
   handlePageChange(page) {
-    this.props.dispatch(postActions.getPosts(this.props.type, page, this.state.limit));
+    this.props.dispatch(
+      postActions.getPosts(this.props.type, page, this.state.limit),
+    );
   }
 
   render() {
@@ -33,10 +36,8 @@ class HomePage extends React.Component {
     const { limit } = this.state;
     return (
       <Fragment>
-        {posts &&
-          <PostList posts={posts} />
-        }
-        {pageInfo &&
+        {posts && <PostList posts={posts} />}
+        {pageInfo && (
           <Pagination
             itemClass="page-item"
             linkClass="page-link"
@@ -46,17 +47,16 @@ class HomePage extends React.Component {
             pageRangeDisplayed={5}
             onChange={this.handlePageChange}
           />
-        }
+        )}
       </Fragment>
-    )
+    );
   }
 }
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   posts: state.posts.items,
-  pageInfo: state.posts.pageInfo
-})
+  pageInfo: state.posts.pageInfo,
+});
 
 const connectedHomePage = wrapLayout(connect(mapStateToProps)(HomePage));
-export { connectedHomePage as HomePage }; 
+export { connectedHomePage as HomePage };

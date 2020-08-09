@@ -1,13 +1,12 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 
-import PostTable from '../../components/PostTable'
-import { getMyPosts, removePost } from '../../store/actions'
+import PostTable from '../../components/PostTable';
+import { getMyPosts, removePost } from '../../store/actions';
 import Pagination from 'react-js-pagination';
 import wrapLayout from '../../../../components/layouts/default';
 
 class MyPostPage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +16,7 @@ class MyPostPage extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.getMyPosts({
       ...this.state,
       sort: this.props.sort,
@@ -33,10 +32,8 @@ class MyPostPage extends React.Component {
     const { limit } = this.state;
     return (
       <div className="container">
-        {posts &&
-          <PostTable posts={posts} removePost={removePost} />
-        }
-        {pageInfo &&
+        {posts && <PostTable posts={posts} removePost={removePost} />}
+        {pageInfo && (
           <Pagination
             itemClass="page-item"
             linkClass="page-link"
@@ -46,22 +43,23 @@ class MyPostPage extends React.Component {
             pageRangeDisplayed={5}
             onChange={this.handlePageChange}
           />
-        }
+        )}
       </div>
-    )
+    );
   }
 }
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   posts: state.posts.items,
-  pageInfo: state.posts.pageInfo
-})
+  pageInfo: state.posts.pageInfo,
+});
 
-const mapDispatchToProps = dispatch => ({
-  removePost: post => dispatch(removePost(post)),
-  getMyPosts: (page, limit, sort) => dispatch(getMyPosts(page, limit, sort))
-})
+const mapDispatchToProps = (dispatch) => ({
+  removePost: (post) => dispatch(removePost(post)),
+  getMyPosts: (page, limit, sort) => dispatch(getMyPosts(page, limit, sort)),
+});
 
-const connectedPostPage = wrapLayout(connect(mapStateToProps, mapDispatchToProps)(MyPostPage));
-export { connectedPostPage as MyPostPage }; 
+const connectedPostPage = wrapLayout(
+  connect(mapStateToProps, mapDispatchToProps)(MyPostPage),
+);
+export { connectedPostPage as MyPostPage };

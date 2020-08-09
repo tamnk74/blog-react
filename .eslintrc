@@ -1,20 +1,26 @@
 {
   "extends": [
     "eslint:recommended",
+    "prettier",
+    "prettier/react",
     "plugin:react/recommended"
   ],
-
+  "plugins": ["prettier", "redux-saga", "react", "react-hooks", "jsx-a11y"],
+  "env": {
+    "jest": true,
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
   "globals": {
     "localStorage": true,
     "fetch": true,
-    "console": true,
+    "console": true
   },
 
   "parser": "babel-eslint",
 
-  // "plugins": ["prettier"],
-
   "rules": {
-    //    "prettier/prettier": "error"
+    "prettier/prettier": "error"
   }
 }

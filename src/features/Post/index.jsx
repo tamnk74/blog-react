@@ -6,7 +6,7 @@ import { MainPage } from './pages/Main';
 
 Post.propTypes = {};
 
-function Post(props) {
+function Post() {
   const match = useRouteMatch();
   console.log({ match });
 

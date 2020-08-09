@@ -2,11 +2,12 @@ import React, { Component, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { Router, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import { history } from './utils';
 import { Navbar } from './features/App/components/Navbar';
 import NotFound from './components/NotFound';
+import Loading from './components/Loading';
 import { HomePage } from './features/Home';
 import { SignIn, SignUp, Profile } from './features/Auth/pages';
 import { getUserAction } from './features/Auth/store/actions';
@@ -23,11 +24,12 @@ class App extends Component {
     super(props);
   }
 
-  notify = (message) => toast.error(message, {
-    position: toast.POSITION.TOP_RIGHT
-  });
+  notify = (message) =>
+    toast.error(message, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     nextProps.error && this.notify(nextProps.error);
   }
 
@@ -53,7 +55,7 @@ class App extends Component {
           <meta name="description" content="A React.js blog application" />
         </Helmet>
         <ToastContainer />
-        <Suspense fallback={<div>Loading ...</div>}>
+        <Suspense fallback={<Loading />}>
           <Router history={history}>
             <Navbar />
             <Switch>
@@ -74,7 +76,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   token: state.auth.token,
   error: state.app.error,
 });
