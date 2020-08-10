@@ -10,7 +10,7 @@ import {
 } from './saga';
 
 import * as types from './constants';
-import { SET_QUERY } from "../../App/store/constants";
+import { SET_QUERY } from '../../App/store/constants';
 
 export default function* watchUserAuthentication() {
   yield takeLatest(types.LIST_POST, getPostsSaga);

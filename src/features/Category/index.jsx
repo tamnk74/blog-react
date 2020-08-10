@@ -7,7 +7,6 @@ Category.propTypes = {};
 
 function Category(props) {
   const match = useRouteMatch();
-  console.log({ match });
 
   return (
     <Switch>

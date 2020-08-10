@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field, FastField, ErrorMessage } from 'formik';
-import SelectField from 'custom-fields/SelectField';
+import SelectField from '../../../../custom-fields/SelectField';
 import * as Yup from 'yup';
 import classNames from 'classnames';
 
@@ -24,10 +24,10 @@ PostForm.propTypes = {
 };
 
 function PostForm({ onSubmit, post, categories = [] }) {
-  const initialValues = post || {
-    title: '',
-    content: '',
-    category_id: null,
+  const initialValues = {
+    title: post ? post.title : '',
+    content: post ? post.content : '',
+    category_id: post ? post.category_id : null,
   };
   return (
     <Formik

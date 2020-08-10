@@ -1,7 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { Deserializer as JSONAPIDeserializer } from 'jsonapi-serializer';
-const jaDeserializer = new JSONAPIDeserializer();
+const jaDeserializer = new JSONAPIDeserializer('camelCase');
 
 class Request {
   constructor(api) {
@@ -19,30 +19,34 @@ class Request {
   }
 
   async get(path, options) {
-    const response = await axios.get(`${this.api}${path}?${queryString.stringify(options)}`)
-      .catch(error => {
+    const response = await axios
+      .get(`${this.api}${path}?${queryString.stringify(options)}`)
+      .catch((error) => {
         throw error.response ? error.response.data : error;
       });
     return jaDeserializer.deserialize(response.data);
   }
 
   async post(path, payload) {
-    const response = await axios.post(`${this.api}${path}`, payload)
-      .catch(error => {
+    const response = await axios
+      .post(`${this.api}${path}`, payload)
+      .catch((error) => {
         throw error.response ? error.response.data : error;
       });
     return jaDeserializer.deserialize(response.data);
   }
   async patch(path, payload) {
-    const response = await axios.patch(`${this.api}${path}`, payload)
-      .catch(error => {
+    const response = await axios
+      .patch(`${this.api}${path}`, payload)
+      .catch((error) => {
         throw error.response ? error.response.data : error;
       });
     return response.data ? jaDeserializer.deserialize(response) : '';
   }
   async delete(path, payload) {
-    const response = await axios.delete(`${this.api}${path}`, payload)
-      .catch(error => {
+    const response = await axios
+      .delete(`${this.api}${path}`, payload)
+      .catch((error) => {
         throw error.response ? error.response.data : error;
       });
     return response.data ? jaDeserializer.deserialize(response) : '';

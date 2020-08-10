@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getPost } from './../../store/actions';
+import { getPostBySlug } from './../../store/actions';
 import moment from 'moment';
 import { markdown } from 'markdown';
 
@@ -11,7 +12,7 @@ class DetailPage extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.props.dispatch(getPost(this.props.match.params.slug));
+    this.props.getPostBySlug(this.props.match.params.slug);
   }
 
   render() {
@@ -59,9 +60,26 @@ class DetailPage extends React.Component {
   }
 }
 
+DetailPage.propTypes = {
+  getPostBySlug: PropTypes.func,
+  post: PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }),
+  }),
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getPostBySlug: (post) => dispatch(getPostBySlug(post)),
+});
+
 const mapStateToProps = (state) => ({
   post: state.posts.post,
 });
 
-const connectedPostDetail = connect(mapStateToProps)(DetailPage);
+const connectedPostDetail = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DetailPage);
 export { connectedPostDetail as DetailPage };

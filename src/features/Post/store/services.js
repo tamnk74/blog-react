@@ -8,8 +8,12 @@ export const getMyPosts = (options) => {
   return request.get('/api/me/posts', options);
 };
 
-export const getPost = (slug) => {
-  return request.get('/api/posts/' + slug);
+export const getPost = (id) => {
+  return request.get('/api/posts/' + id);
+};
+
+export const getPostBySlug = (slug) => {
+  return request.get('/api/posts/slugs/' + slug);
 };
 
 export const create = (post) => {
