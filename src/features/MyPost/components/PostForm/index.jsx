@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field, FastField, ErrorMessage } from 'formik';
-import SelectField from '../../../../custom-fields/SelectField';
+import SelectField from 'custom-fields/SelectField';
 import * as Yup from 'yup';
 import classNames from 'classnames';
 

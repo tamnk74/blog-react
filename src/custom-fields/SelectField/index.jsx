@@ -42,7 +42,6 @@ function SelectField(props) {
     };
     field.onChange(changeEvent);
   };
-  console.log(options);
   return (
     <FormGroup>
       {label && <Label for={name}>{label}</Label>}
