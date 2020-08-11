@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -30,7 +31,17 @@ class App extends Component {
     });
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    nextProps.error && this.notify(nextProps.error);
+    const { error } = nextProps;
+    if (Array.isArray(error)) {
+      this.notify(
+        error.map((err) => err.message || err.detail).join('\n') ||
+          'Internal Server Error',
+      );
+      return;
+    }
+    if (error) {
+      this.notify(error.message || error.detail || 'Internal Server Error');
+    }
   }
 
   // componentWillMount() {
@@ -41,7 +52,7 @@ class App extends Component {
 
   componentDidMount() {
     if (localStorage.getItem('token')) {
-      this.props.dispatch(getUserAction());
+      this.props.getUser();
     }
   }
 
@@ -76,10 +87,20 @@ class App extends Component {
   }
 }
 
+App.propTypes = {
+  getUser: PropTypes.func,
+  error: PropTypes.object,
+  token: PropTypes.object,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getUser: () => dispatch(getUserAction()),
+});
+
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   error: state.app.error,
 });
 
-const connectedApp = connect(mapStateToProps)(App);
+const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 export { connectedApp as App };

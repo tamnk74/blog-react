@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import PostList from './PostList';
@@ -36,13 +37,11 @@ class InfinityPost extends React.Component {
 
   UNSAFE_componentWillMount() {
     // Loads some posts on initial load
-    this.props.dispatch(
-      getPosts(this.props.type, this.state.page, this.state.limit),
-    );
+    this.props.getPosts(this.state);
   }
 
   loadMorePosts() {
-    this.props.dispatch(getPosts(this.props.type, page, this.state.limit));
+    this.props.getPosts(this.state);
   }
 
   render() {
@@ -66,6 +65,16 @@ class InfinityPost extends React.Component {
   }
 }
 
+InfinityPost.propTypes = {
+  posts: PropTypes.array,
+  pageInfo: PropTypes.object,
+  getPosts: PropTypes.func,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getPosts: (options) => dispatch(getPosts(options)),
+});
+
 function mapStateToProps(state) {
   const { data, pageInfo } = (state.post && state.post.list) || {};
   return {
@@ -74,5 +83,8 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedInfinityPost = connect(mapStateToProps)(InfinityPost);
+const connectedInfinityPost = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(InfinityPost);
 export { connectedInfinityPost as InfinityPost };

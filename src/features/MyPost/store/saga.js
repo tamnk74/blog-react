@@ -3,7 +3,6 @@ import {
   getPosts,
   getMyPosts,
   create,
-  getPostBySlug,
   getPost,
   updatePost,
   removePost,

@@ -36,7 +36,11 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open --hot --port 4200",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "prettier": "prettier --check **/*.js",
+    "prettier:fix": "prettier --write **/*.js",
+    "lint:fix": "eslint ./src --fix",
+    "lint": "eslint ./src"
   },
   "eslintConfig": {
     "extends": "react-app"

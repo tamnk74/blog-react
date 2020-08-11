@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   app,
   auth,
   posts,
-  categories
+  categories,
 });
 
 export default rootReducer;
