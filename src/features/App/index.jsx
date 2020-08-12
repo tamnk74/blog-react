@@ -45,12 +45,6 @@ class App extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   if (localStorage.getItem('token')) {
-  //     this.props.dispatch(getUserAction());
-  //   }
-  // }
-
   componentDidMount() {
     if (localStorage.getItem('token')) {
       this.props.getUser();

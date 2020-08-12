@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import { history } from './utils';
 import { Navbar } from './features/App/components/Navbar';
+import AuthRoute from './components/AuthRoute';
 import NotFound from './components/NotFound';
 import Loading from './components/Loading';
 import { HomePage } from './features/Home';
@@ -31,24 +32,17 @@ class App extends Component {
     });
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { error } = nextProps;
-    if (Array.isArray(error)) {
+    const { errors } = nextProps;
+    if (Array.isArray(errors)) {
       this.notify(
-        error.map((err) => err.message || err.detail).join('\n') ||
-          'Internal Server Error',
+        errors.map((err) => err.detail).join('\n') || 'Internal Server Error',
       );
       return;
     }
-    if (error) {
-      this.notify(error.message || error.detail || 'Internal Server Error');
+    if (errors) {
+      this.notify('Internal Server Error');
     }
   }
-
-  // componentWillMount() {
-  //   if (localStorage.getItem('token')) {
-  //     this.props.dispatch(getUserAction());
-  //   }
-  // }
 
   componentDidMount() {
     if (localStorage.getItem('token')) {
@@ -73,11 +67,10 @@ class App extends Component {
               <Route exact={true} path="/" component={HomePage} />
               <Route exact={true} path="/login" component={SignIn} />
               <Route exact={true} path="/signup" component={SignUp} />
-              <Route exact={true} path="/profile" component={Profile} />
-              <Route path="/me/posts" component={MyPost} />
+              <AuthRoute exact={true} path="/profile" component={Profile} />
+              <AuthRoute path="/me/posts" component={MyPost} />
               <Route path="/posts" component={Post} />
               <Route path="/categories" component={Category} />
-              {/* <AuthRoute key={i} exact={route.exact} path={route.path} component={route.component} /> */}
               <Route component={NotFound} />
             </Switch>
           </Router>
@@ -89,8 +82,8 @@ class App extends Component {
 
 App.propTypes = {
   getUser: PropTypes.func,
-  error: PropTypes.object,
-  token: PropTypes.object,
+  errors: PropTypes.array,
+  token: PropTypes.string,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -99,7 +92,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-  error: state.app.error,
+  errors: state.app.error && state.app.error.errors,
 });
 
 const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);

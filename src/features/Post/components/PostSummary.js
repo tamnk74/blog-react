@@ -13,19 +13,26 @@ const PostSummary = ({ post }) => {
       <div className="d-flex flex-row">
         <div className="p-2">
           <i className="fa fa-user"></i> By:{' '}
-          <a href="#">{post.user && post.user.fullName}</a>
+          {post.user && (
+            <Link to={`/users/${post.user.id}/posts`}>
+              {post.user.fullName}
+            </Link>
+          )}
         </div>
         <div className="p-2">
           | <i className="fa fa-calendar"></i>{' '}
-          {moment(post.createdAt).format('DD-MMM-YYYY')} |
+          {moment(post.createdAt).format('DD-MMM-YYYY')}
         </div>
         <div className="p-2">
           | <i className="fa fa-comments"></i>{' '}
-          <a href="#"> {post.view} viewer</a> |
+          <a href="#"> {post.view} viewer</a>
         </div>
         {post.category && (
           <div className="p-2">
-            | Categories: <span className="label label-primary">reactjs</span>
+            | Categories:{' '}
+            <Link to={`/categories/${post.category.id}/posts`}>
+              {post.category.title}
+            </Link>
           </div>
         )}
       </div>

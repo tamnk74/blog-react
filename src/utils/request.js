@@ -1,7 +1,9 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { Deserializer as JSONAPIDeserializer } from 'jsonapi-serializer';
-const jaDeserializer = new JSONAPIDeserializer('camelCase');
+const jaDeserializer = new JSONAPIDeserializer({
+  keyForAttribute: 'camelCase',
+});
 
 class Request {
   constructor(api) {

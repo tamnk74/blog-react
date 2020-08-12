@@ -31,7 +31,7 @@ class SignedInLinks extends React.Component {
             role="button"
             aria-expanded="true"
           >
-            {user.name} <span className="caret"></span>
+            {user.fullName} <span className="caret"></span>
           </a>
           <div
             className="dropdown-menu"
@@ -66,5 +66,5 @@ const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logoutAction()),
 });
 
-const ConnectedSignedInLinks = connect(mapDispatchToProps)(SignedInLinks);
+const ConnectedSignedInLinks = connect(null, mapDispatchToProps)(SignedInLinks);
 export { ConnectedSignedInLinks as SignedInLinks };

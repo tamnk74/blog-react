@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 import { connect } from 'react-redux';
@@ -13,8 +14,8 @@ class SignIn extends React.Component {
     // this.props.dispatch(authActions.logout());
 
     this.state = {
-      username: 'tamnk',
-      password: '123!@#',
+      email: '',
+      password: '',
       submitted: false,
     };
 
@@ -36,39 +37,35 @@ class SignIn extends React.Component {
     e.preventDefault();
 
     this.setState({ submitted: true });
-    const { username, password } = this.state;
-    if (username && password) {
-      this.props.dispatch(
-        loginAction({
-          username,
-          password,
-        }),
-      );
+    const { email, password } = this.state;
+    if (email && password) {
+      this.props.login({
+        email,
+        password,
+      });
     }
   }
 
   render() {
     const { loggingIn } = this.props;
-    const { username, password, submitted } = this.state;
+    const { email, password, submitted } = this.state;
     return (
       <div className="col-md-9">
         <h2>Login</h2>
         <form name="form" onSubmit={this.handleSubmit}>
           <div
-            className={
-              'form-group' + (submitted && !username ? ' has-error' : '')
-            }
+            className={'form-group' + (submitted && !email ? ' has-error' : '')}
           >
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
-              name="username"
-              value={username}
+              name="email"
+              value={email}
               onChange={this.handleChange}
             />
-            {submitted && !username && (
-              <div className="help-block">Username is required</div>
+            {submitted && !email && (
+              <div className="help-block">Email is required</div>
             )}
           </div>
           <div
@@ -111,9 +108,19 @@ class SignIn extends React.Component {
   }
 }
 
+SignIn.propTypes = {
+  login: PropTypes.func,
+  loggingIn: PropTypes.bool,
+};
+const mapDispatchToProps = (dispatch) => ({
+  login: (user) => dispatch(loginAction(user)),
+});
+
 const mapStateToProps = (state) => ({
   token: state.auth.token,
 });
 
-const connectedSignIn = wrapLayout(connect(mapStateToProps)(SignIn));
+const connectedSignIn = wrapLayout(
+  connect(mapStateToProps, mapDispatchToProps)(SignIn),
+);
 export { connectedSignIn as SignIn };

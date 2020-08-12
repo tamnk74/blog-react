@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getPostBySlug } from './../../store/actions';
 import moment from 'moment';
 import { markdown } from 'markdown';
+import './Detail.scss';
 
 class DetailPage extends React.Component {
   constructor(props) {
@@ -36,20 +37,26 @@ class DetailPage extends React.Component {
             <ul className="list-inline">
               <li>
                 <i className="fa fa-user"></i> By:{' '}
-                <a href="#">{post.user && post.user.fullName}</a>
+                {post.user && (
+                  <Link to={`/users/${post.user.id}/posts`}>
+                    {post.user.fullName}
+                  </Link>
+                )}
               </li>
               <li>
                 | <i className="fa fa-calendar"></i>{' '}
-                {moment(post.createdAt).format('DD-MMM-YYYY')} |
+                {moment(post.createdAt).format('DD-MMM-YYYY')}
               </li>
               <li>
                 | <i className="fa fa-comments"></i>{' '}
-                <a href="#"> {post.view} viewer</a> |
+                <a href="#"> {post.view} viewer</a>
               </li>
               {post.category && (
                 <li>
                   | Categories:{' '}
-                  <span className="label label-primary">reactjs</span>
+                  <Link to={`/categories/${post.category.id}/posts`}>
+                    {post.category.title}
+                  </Link>
                 </li>
               )}
             </ul>

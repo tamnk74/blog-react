@@ -13,7 +13,10 @@ class EditPostPage extends Component {
   }
 
   handleSubmit(post) {
-    this.props.updatePost(post);
+    this.props.updatePost({
+      ...post,
+      id: this.props.post.id,
+    });
   }
 
   UNSAFE_componentWillMount() {
