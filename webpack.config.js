@@ -4,38 +4,49 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   resolve: {
-    extensions: ['.jsx', '.js']
+    extensions: ['.jsx', '.js'],
   },
   output: {
-    publicPath: "/",
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js'
+    filename: 'main.js',
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-    ]
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
+        ],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      filename: './index.html'
-    })
+      filename: './index.html',
+    }),
   ],
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   externals: {
     // global app config object
     config: JSON.stringify({
-      apiUrl: 'http://localhost:3000'
-    })
-  }
-}
+      apiUrl: 'http://localhost:3000',
+    }),
+  },
+};

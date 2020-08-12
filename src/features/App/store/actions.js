@@ -8,6 +8,6 @@ import { SET_QUERY } from './constants';
 export const setQuery = (query) => {
   return {
     type: SET_QUERY,
-    query
+    query,
   };
-}
+};

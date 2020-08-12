@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import Pagination from 'react-js-pagination';
 
 import PostList from '../../components/PostList';
 import { getPosts } from '../../store/actions';
-import Pagination from 'react-js-pagination';
 import wrapLayout from '../../../../components/layouts/default';
 
 class MainPage extends React.Component {

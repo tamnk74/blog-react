@@ -1,7 +1,5 @@
-import {takeLatest} from 'redux-saga/effects';
-import {
-  showErrorSaga,
-} from './sagas';
+import { takeLatest } from 'redux-saga/effects';
+import { showErrorSaga } from './sagas';
 
 import * as types from './constants';
 

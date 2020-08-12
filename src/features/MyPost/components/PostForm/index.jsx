@@ -23,12 +23,13 @@ PostForm.propTypes = {
   categories: PropTypes.array,
 };
 
-function PostForm({ onSubmit, post, categories = [] }) {
-  const initialValues = post || {
-    title: '',
-    content: '',
-    category_id: null,
+function PostForm({ onSubmit, post, categories }) {
+  const initialValues = {
+    title: post ? post.title : '',
+    content: post ? post.content : '',
+    category_id: post ? post.category_id : null,
   };
+
   return (
     <Formik
       enableReinitialize

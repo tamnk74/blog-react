@@ -1,21 +1,12 @@
 import request from '../../../utils/request';
 
-function validateEmail(email) {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-}
-
-export const login = async ({username, password}) => {
-  const email = validateEmail(username) ? username : false;
-  const name = !email && username;
-
-  const {token} = await request.post('/api/login', {
-    email: email || undefined,
-    name: name || undefined,
-    password: password
+export const login = async ({ email, password }) => {
+  const { accessToken } = await request.post('/api/login', {
+    email,
+    password,
   });
-  localStorage.setItem('token', token);
-  request.setBearerToken(token);
+  localStorage.setItem('token', accessToken);
+  request.setBearerToken(accessToken);
   return request.get('/api/me');
 };
 

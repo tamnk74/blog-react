@@ -1,11 +1,13 @@
 import React, { Component, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { history } from './utils';
 import { Navbar } from './features/App/components/Navbar';
+import AuthRoute from './components/AuthRoute';
 import NotFound from './components/NotFound';
 import Loading from './components/Loading';
 import { HomePage } from './features/Home';
@@ -30,18 +32,21 @@ class App extends Component {
     });
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    nextProps.error && this.notify(nextProps.error);
+    const { errors } = nextProps;
+    if (Array.isArray(errors)) {
+      this.notify(
+        errors.map((err) => err.detail).join('\n') || 'Internal Server Error',
+      );
+      return;
+    }
+    if (errors) {
+      this.notify('Internal Server Error');
+    }
   }
-
-  // componentWillMount() {
-  //   if (localStorage.getItem('token')) {
-  //     this.props.dispatch(getUserAction());
-  //   }
-  // }
 
   componentDidMount() {
     if (localStorage.getItem('token')) {
-      this.props.dispatch(getUserAction());
+      this.props.getUser();
     }
   }
 
@@ -62,11 +67,10 @@ class App extends Component {
               <Route exact={true} path="/" component={HomePage} />
               <Route exact={true} path="/login" component={SignIn} />
               <Route exact={true} path="/signup" component={SignUp} />
-              <Route exact={true} path="/profile" component={Profile} />
-              <Route path="/me/posts" component={MyPost} />
+              <AuthRoute exact={true} path="/profile" component={Profile} />
+              <AuthRoute path="/me/posts" component={MyPost} />
               <Route path="/posts" component={Post} />
               <Route path="/categories" component={Category} />
-              {/* <AuthRoute key={i} exact={route.exact} path={route.path} component={route.component} /> */}
               <Route component={NotFound} />
             </Switch>
           </Router>
@@ -76,10 +80,20 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  token: state.auth.token,
-  error: state.app.error,
+App.propTypes = {
+  getUser: PropTypes.func,
+  errors: PropTypes.array,
+  token: PropTypes.string,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getUser: () => dispatch(getUserAction()),
 });
 
-const connectedApp = connect(mapStateToProps)(App);
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+  errors: state.app.error && state.app.error.errors,
+});
+
+const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 export { connectedApp as App };

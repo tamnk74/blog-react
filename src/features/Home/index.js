@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import PostList from '../Post/components/PostList';
-import * as postActions from '../Post/store/actions';
+import { getPosts } from '../Post/store/actions';
 import Pagination from 'react-js-pagination';
 import wrapLayout from '../../components/layouts/default';
 
@@ -17,18 +18,17 @@ class HomePage extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.props.dispatch(
-      postActions.getPosts({
-        ...this.state,
-        sort: '-view',
-      }),
-    );
+    this.props.getPosts({
+      ...this.state,
+      sort: '-view',
+    });
   }
 
   handlePageChange(page) {
-    this.props.dispatch(
-      postActions.getPosts(this.props.type, page, this.state.limit),
-    );
+    this.setState({
+      page,
+    });
+    this.props.getPosts(this.state);
   }
 
   render() {
@@ -53,10 +53,22 @@ class HomePage extends React.Component {
   }
 }
 
+HomePage.propTypes = {
+  posts: PropTypes.array,
+  pageInfo: PropTypes.object,
+  getPosts: PropTypes.func,
+};
+
 const mapStateToProps = (state) => ({
   posts: state.posts.items,
   pageInfo: state.posts.pageInfo,
 });
 
-const connectedHomePage = wrapLayout(connect(mapStateToProps)(HomePage));
+const mapDispatchToProps = (dispatch) => ({
+  getPosts: (options) => dispatch(getPosts(options)),
+});
+
+const connectedHomePage = wrapLayout(
+  connect(mapStateToProps, mapDispatchToProps)(HomePage),
+);
 export { connectedHomePage as HomePage };

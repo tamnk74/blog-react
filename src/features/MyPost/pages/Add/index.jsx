@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createPost } from '../../store/actions';
-import { getCategoriesAction } from '../../../Category/store/actions';
+import { getCategoriesAction } from '../../../../features/Category/store/actions';
 import PostForm from '../../components/PostForm';
 import wrapLayout from '../../../../components/layouts/default';
 
