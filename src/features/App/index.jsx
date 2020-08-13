@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { history } from '../../utils';
+import { history } from 'utils';
 import { Navbar } from './components/Navbar';
 import routes from '../../routes';
 import { getUserAction } from '../AuthPage/actions';

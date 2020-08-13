@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PostTable from '../../components/PostTable';
 import { getMyPosts, removePost } from '../../store/actions';
 import Pagination from 'react-js-pagination';
-import wrapLayout from '../../../../components/layouts/default';
+import wrapLayout from 'components/layouts/default';
 
 class MyPostPage extends React.Component {
   constructor(props) {

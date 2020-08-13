@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 AuthRoute.propTypes = {
   component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-  location: PropTypes.string,
+  location: PropTypes.any,
 };
 
 function AuthRoute({ component: Component, ...rest }) {

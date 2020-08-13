@@ -5,6 +5,12 @@ module.exports = {
   mode: 'development',
   resolve: {
     extensions: ['.jsx', '.js'],
+    alias: {
+      components: path.resolve(__dirname, 'src/components'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+      features: path.resolve(__dirname, 'src/features/'),
+      customFields: path.resolve(__dirname, 'src/customFields/'),
+    }
   },
   output: {
     publicPath: '/',

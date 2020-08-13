@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import wrapLayout from '../../../../components/layouts/default';
+import wrapLayout from 'components/layouts/default';
 
 class Profile extends React.Component {
   constructor(props) {

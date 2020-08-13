@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { history } from '../../utils';
+import { history } from 'utils';
 
 NotFound.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 function NotFound({ location }) {
@@ -12,7 +12,9 @@ function NotFound({ location }) {
       <h3>
         Page not found for this path <code>{location.pathname}</code>
       </h3>
-      <button className="btn btn-default" onClick={() => history.goBack()} >Go back</button>
+      <button className="btn btn-default" onClick={() => history.goBack()}>
+        Go back
+      </button>
     </div>
   );
 }

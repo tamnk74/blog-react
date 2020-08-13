@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updatePost, getPost } from '../../store/actions';
-import { getCategoriesAction } from '../../../../features/Category/store/actions';
+import { getCategoriesAction } from 'features/Category/store/actions';
 import PostForm from '../../components/PostForm';
-import wrapLayout from '../../../../components/layouts/default';
+import wrapLayout from 'components/layouts/default';
 
 class EditPostPage extends Component {
   constructor(props) {
