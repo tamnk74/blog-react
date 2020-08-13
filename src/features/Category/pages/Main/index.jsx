@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import CategoryList from '../../../../components/categories/CategoryList';
+import CategoryList from 'components/categories/CategoryList';
 import { getCategoriesAction } from '../../store/actions';
-import wrapLayout from '../../../../components/layouts/default';
+import wrapLayout from 'components/layouts/default';
 
 class CategoryPage extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { history } from '../../utils';
+import { history } from 'utils';
 
 NotFound.propTypes = {
   location: PropTypes.object,

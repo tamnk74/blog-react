@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 import { connect } from 'react-redux';
-import wrapLayout from '../../../../components/layouts/default';
+import wrapLayout from 'components/layouts/default';
 import { loginAction } from '../../store/actions';
 
 class SignIn extends React.Component {

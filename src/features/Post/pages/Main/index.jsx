@@ -4,7 +4,7 @@ import Pagination from 'react-js-pagination';
 
 import PostList from '../../components/PostList';
 import { getPosts } from '../../store/actions';
-import wrapLayout from '../../../../components/layouts/default';
+import wrapLayout from 'components/layouts/default';
 
 class MainPage extends React.Component {
   constructor(props) {
