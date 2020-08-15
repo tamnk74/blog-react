@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import PostTable from '../../components/PostTable';
 import { getMyPosts, removePost } from '../../store/actions';
 import Pagination from 'react-js-pagination';
@@ -17,14 +17,14 @@ class MyPostPage extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.props.getMyPosts({
-      ...this.state,
-      sort: this.props.sort,
-    });
+    this.props.getMyPosts(this.state);
   }
 
   handlePageChange(page) {
-    this.props.getMyPosts(page, this.state.limit, this.props.sort);
+    this.setState({
+      page,
+    });
+    this.props.getMyPosts(this.state);
   }
 
   render() {
@@ -48,6 +48,13 @@ class MyPostPage extends React.Component {
     );
   }
 }
+
+MyPostPage.propTypes = {
+  posts: PropTypes.array,
+  pageInfo: PropTypes.object,
+  removePost: PropTypes.func,
+  getMyPosts: PropTypes.func,
+};
 
 const mapStateToProps = (state) => ({
   posts: state.posts.items,

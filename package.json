@@ -39,8 +39,8 @@
     "build": "webpack --mode production",
     "prettier": "prettier --check **/*.js",
     "prettier:fix": "prettier --write **/*.js",
-    "lint:fix": "eslint ./src --fix",
-    "lint": "eslint ./src"
+    "lint:fix": "eslint --ext .ts,.js,.jsx --ignore-path .gitignore ./src --fix",
+    "lint": "eslint --ext .ts,.js,.jsx --ignore-path .gitignore ./src"
   },
   "eslintConfig": {
     "extends": "react-app"

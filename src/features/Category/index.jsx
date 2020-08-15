@@ -5,7 +5,7 @@ import { CategoryPage } from './pages/Main';
 
 Category.propTypes = {};
 
-function Category(props) {
+function Category() {
   const match = useRouteMatch();
 
   return (

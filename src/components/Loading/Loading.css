@@ -21,9 +21,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(rgba(242, 242, 242, 1), rgba(242, 242, 242, 1));
+  background: radial-gradient(rgba(242, 242, 242, 0.5), rgba(242, 242, 242, 0.8));
 
-  background: -webkit-radial-gradient(rgba(242, 242, 242, 1), rgba(242, 242, 242, 1));
+  background: -webkit-radial-gradient(rgba(242, 242, 242, 0.5), rgba(242, 242, 242, 0.8));
 }
 
 /* :not(:required) hides these rules from IE9 and below */
