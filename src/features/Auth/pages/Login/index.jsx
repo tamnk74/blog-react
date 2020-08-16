@@ -88,7 +88,7 @@ class SignIn extends React.Component {
             <button className="btn btn-success">Login</button>
             <FacebookLogin
               cssClass="btn btn-primary"
-              appId="712120862924820"
+              appId="398766187175821"
               autoLoad={false}
               fields="name,email,picture"
               callback={this.responseFacebook}
