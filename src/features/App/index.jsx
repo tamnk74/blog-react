@@ -2,30 +2,16 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { history } from 'utils';
 import { Navbar } from './components/Navbar';
+import AuthRoute from 'components/AuthRoute';
 import routes from '../../routes';
 import { getUserAction } from '../AuthPage/actions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      localStorage.getItem('token') ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{ pathname: '/login', state: { from: props.location } }}
-        />
-      )
-    }
-  />
-);
 
 class App extends Component {
   constructor(props) {
@@ -67,7 +53,7 @@ class App extends Component {
             {routes.map((route, i) => {
               if (route.isPrivate) {
                 return (
-                  <PrivateRoute
+                  <AuthRoute
                     key={i}
                     exact={route.exact}
                     path={route.path}

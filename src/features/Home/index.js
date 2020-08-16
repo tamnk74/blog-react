@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import PostList from '../Post/components/PostList';
 import { getPosts } from '../Post/store/actions';
 import Pagination from 'react-js-pagination';
-import wrapLayout from '../../components/layouts/default';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -68,7 +67,8 @@ const mapDispatchToProps = (dispatch) => ({
   getPosts: (options) => dispatch(getPosts(options)),
 });
 
-const connectedHomePage = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(HomePage),
-);
+const connectedHomePage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomePage);
 export { connectedHomePage as HomePage };

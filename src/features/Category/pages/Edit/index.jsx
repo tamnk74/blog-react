@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updatePost, getPost } from './actions';
 import PostForm from './PostForm';
-import { history } from '../../utils';
-import wrapLayout from '../../components/layouts/default';
 
 class EditPostPage extends Component {
   constructor(props) {
@@ -12,11 +12,12 @@ class EditPostPage extends Component {
   }
 
   handleSubmit(post) {
-    this.props.dispatch(updatePost(post));
+    this.props.updatePost(post);
   }
 
-  UNSAFE_componentWillMount() {
-    this.props.dispatch(getPost(this.props.match.params.id));
+  componentDidMount() {
+    const { id } = useParams();
+    this.props.getPost(id);
   }
 
   render() {
@@ -31,11 +32,24 @@ class EditPostPage extends Component {
   }
 }
 
+EditPostPage.propTypes = {
+  post: PropTypes.object,
+  getPost: PropTypes.func,
+  updatePost: PropTypes.func,
+};
+
 const mapStateToProps = (state) => ({
   post: state.posts.post,
 });
 
-const connectedEditPostPage = wrapLayout(
-  connect(mapStateToProps)(EditPostPage),
-);
+const mapDispatchToProps = (dispatch) => ({
+  getPost: (id) => dispatch(getPost(id)),
+  updatePost: (id) => dispatch(updatePost(id)),
+});
+
+const connectedEditPostPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EditPostPage);
+
 export { connectedEditPostPage as EditPostPage };

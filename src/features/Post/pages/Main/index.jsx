@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Pagination from 'react-js-pagination';
+import PropTypes from 'prop-types';
 
 import PostList from '../../components/PostList';
 import { getPosts } from '../../store/actions';
-import wrapLayout from 'components/layouts/default';
+import Loading from 'components/Loading';
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -17,24 +18,24 @@ class MainPage extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.props.dispatch(
-      getPosts({
-        ...this.state,
-        sort: this.props.sort,
-      }),
-    );
+    this.props.getPosts({
+      ...this.state,
+    });
   }
 
   handlePageChange(page) {
-    this.props.dispatch(getPosts(this.props.type, page, this.state.limit));
+    this.setState({
+      page,
+    });
+    this.props.getPosts(this.state);
   }
 
   render() {
     const { posts, pageInfo } = this.props;
     const { limit } = this.state;
     return (
-      <Fragment>
-        {posts && <PostList posts={posts} />}
+      <>
+        {posts ? <PostList posts={posts} /> : <Loading />}
         {pageInfo && (
           <Pagination
             itemClass="page-item"
@@ -46,15 +47,29 @@ class MainPage extends React.Component {
             onChange={this.handlePageChange}
           />
         )}
-      </Fragment>
+      </>
     );
   }
 }
+
+MainPage.propTypes = {
+  posts: PropTypes.object,
+  pageInfo: PropTypes.object,
+  getPosts: PropTypes.func,
+};
 
 const mapStateToProps = (state) => ({
   posts: state.posts.items,
   pageInfo: state.posts.pageInfo,
 });
 
-const connectedPostPage = wrapLayout(connect(mapStateToProps)(MainPage));
+const mapDispatchToProps = (dispatch) => ({
+  getPosts: (options) => dispatch(getPosts(options)),
+});
+
+const connectedPostPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MainPage);
+
 export { connectedPostPage as MainPage };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getPost } from './../../store/actions';
 import moment from 'moment';
 import { markdown } from 'markdown';
@@ -13,7 +13,8 @@ class DetailPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getPost(this.props.match.params.id);
+    const { id } = useParams();
+    this.props.getPost(id);
   }
 
   render() {

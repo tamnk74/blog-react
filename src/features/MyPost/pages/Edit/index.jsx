@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updatePost, getPost } from '../../store/actions';
 import { getCategoriesAction } from 'features/Category/store/actions';
 import PostForm from '../../components/PostForm';
-import wrapLayout from 'components/layouts/default';
 
 class EditPostPage extends Component {
   constructor(props) {
@@ -20,8 +20,9 @@ class EditPostPage extends Component {
   }
 
   UNSAFE_componentWillMount() {
+    const { id } = useParams();
     this.props.fetchCategories();
-    this.props.getPost(this.props.match.params.id);
+    this.props.getPost(id);
   }
 
   render() {
@@ -67,7 +68,8 @@ const mapStateToProps = (state) => ({
   })),
 });
 
-const connectedEditPostPage = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(EditPostPage),
-);
+const connectedEditPostPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EditPostPage);
 export { connectedEditPostPage as EditPostPage };

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { createPost } from '../../store/actions';
 import { getCategoriesAction } from 'features/Category/store/actions';
 import PostForm from '../../components/PostForm';
-import wrapLayout from 'components/layouts/default';
 
 class NewPostPage extends Component {
   constructor(props) {
@@ -53,7 +52,8 @@ const mapStateToProps = (state) => ({
   })),
 });
 
-const connectedNewPostPage = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(NewPostPage),
-);
+const connectedNewPostPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewPostPage);
 export { connectedNewPostPage as NewPostPage };
