@@ -10,6 +10,7 @@ import { Navbar } from './features/App/components/Navbar';
 import AuthRoute from './components/AuthRoute';
 import NotFound from './components/NotFound';
 import Loading from './components/Loading';
+import wrapDefaultLayout from 'components/layouts/default';
 import { HomePage } from './features/Home';
 import { SignIn, SignUp, Profile } from './features/Auth/pages';
 import { getUserAction } from './features/Auth/store/actions';
@@ -64,14 +65,30 @@ class App extends Component {
           <Router history={history}>
             <Navbar />
             <Switch>
-              <Route exact={true} path="/" component={HomePage} />
-              <Route exact={true} path="/login" component={SignIn} />
-              <Route exact={true} path="/signup" component={SignUp} />
-              <AuthRoute exact={true} path="/profile" component={Profile} />
+              <Route
+                exact={true}
+                path="/"
+                component={wrapDefaultLayout(HomePage)}
+              />
+              <Route
+                exact={true}
+                path="/login"
+                component={wrapDefaultLayout(SignIn)}
+              />
+              <Route
+                exact={true}
+                path="/signup"
+                component={wrapDefaultLayout(SignUp)}
+              />
+              <AuthRoute
+                exact={true}
+                path="/profile"
+                component={wrapDefaultLayout(Profile)}
+              />
               <AuthRoute path="/me/posts" component={MyPost} />
               <Route path="/posts" component={Post} />
               <Route path="/categories" component={Category} />
-              <Route component={NotFound} />
+              <Route component={wrapDefaultLayout(NotFound)} />
             </Switch>
           </Router>
         </Suspense>

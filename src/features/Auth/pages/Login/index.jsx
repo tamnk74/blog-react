@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 import { connect } from 'react-redux';
-import wrapLayout from 'components/layouts/default';
 import { loginAction } from '../../store/actions';
 
 class SignIn extends React.Component {
@@ -120,7 +119,6 @@ const mapStateToProps = (state) => ({
   token: state.auth.token,
 });
 
-const connectedSignIn = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(SignIn),
-);
+const connectedSignIn = connect(mapStateToProps, mapDispatchToProps)(SignIn);
+
 export { connectedSignIn as SignIn };

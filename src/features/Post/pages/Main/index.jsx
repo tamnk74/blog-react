@@ -1,11 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Pagination from 'react-js-pagination';
 import PropTypes from 'prop-types';
 
 import PostList from '../../components/PostList';
 import { getPosts } from '../../store/actions';
-import wrapLayout from 'components/layouts/default';
 import Loading from 'components/Loading';
 
 class MainPage extends React.Component {
@@ -35,7 +34,7 @@ class MainPage extends React.Component {
     const { posts, pageInfo } = this.props;
     const { limit } = this.state;
     return (
-      <Fragment>
+      <>
         {posts ? <PostList posts={posts} /> : <Loading />}
         {pageInfo && (
           <Pagination
@@ -48,7 +47,7 @@ class MainPage extends React.Component {
             onChange={this.handlePageChange}
           />
         )}
-      </Fragment>
+      </>
     );
   }
 }
@@ -68,7 +67,9 @@ const mapDispatchToProps = (dispatch) => ({
   getPosts: (options) => dispatch(getPosts(options)),
 });
 
-const connectedPostPage = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(MainPage),
-);
+const connectedPostPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MainPage);
+
 export { connectedPostPage as MainPage };

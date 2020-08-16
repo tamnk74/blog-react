@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import CategoryList from 'components/categories/CategoryList';
 import { getCategoriesAction } from '../../store/actions';
-import wrapLayout from 'components/layouts/default';
 import Loading from 'components/Loading';
 
 class CategoryPage extends React.Component {
@@ -39,7 +38,9 @@ const mapDispatchToProps = (dispatch) => ({
   getCategories: () => dispatch(getCategoriesAction()),
 });
 
-const connectedCategoryPage = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(CategoryPage),
-);
+const connectedCategoryPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CategoryPage);
+
 export { connectedCategoryPage as CategoryPage };

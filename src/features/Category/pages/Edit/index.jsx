@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updatePost, getPost } from './actions';
 import PostForm from './PostForm';
-import wrapLayout from '../../components/layouts/default';
 
 class EditPostPage extends Component {
   constructor(props) {
@@ -48,7 +47,9 @@ const mapDispatchToProps = (dispatch) => ({
   updatePost: (id) => dispatch(updatePost(id)),
 });
 
-const connectedEditPostPage = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(EditPostPage),
-);
+const connectedEditPostPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EditPostPage);
+
 export { connectedEditPostPage as EditPostPage };

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import wrapLayout from 'components/layouts/default';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -40,12 +39,14 @@ class Profile extends React.Component {
     );
   }
 }
+
 Profile.propTypes = {
   user: PropTypes.object,
 };
+
 const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-const connectedProfile = wrapLayout(connect(mapStateToProps)(Profile));
+const connectedProfile = connect(mapStateToProps)(Profile);
 export { connectedProfile as Profile };

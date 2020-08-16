@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { updatePost, getPost } from '../../store/actions';
 import { getCategoriesAction } from 'features/Category/store/actions';
 import PostForm from '../../components/PostForm';
-import wrapLayout from 'components/layouts/default';
 
 class EditPostPage extends Component {
   constructor(props) {
@@ -69,7 +68,8 @@ const mapStateToProps = (state) => ({
   })),
 });
 
-const connectedEditPostPage = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(EditPostPage),
-);
+const connectedEditPostPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EditPostPage);
 export { connectedEditPostPage as EditPostPage };

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import PostTable from '../../components/PostTable';
 import { getMyPosts, removePost } from '../../store/actions';
 import Pagination from 'react-js-pagination';
-import wrapLayout from 'components/layouts/default';
 
 class MyPostPage extends React.Component {
   constructor(props) {
@@ -31,7 +30,7 @@ class MyPostPage extends React.Component {
     const { posts, pageInfo, removePost } = this.props;
     const { limit } = this.state;
     return (
-      <div className="container">
+      <>
         {posts && <PostTable posts={posts} removePost={removePost} />}
         {pageInfo && (
           <Pagination
@@ -44,7 +43,7 @@ class MyPostPage extends React.Component {
             onChange={this.handlePageChange}
           />
         )}
-      </div>
+      </>
     );
   }
 }
@@ -66,7 +65,9 @@ const mapDispatchToProps = (dispatch) => ({
   getMyPosts: (page, limit, sort) => dispatch(getMyPosts(page, limit, sort)),
 });
 
-const connectedPostPage = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(MyPostPage),
-);
+const connectedPostPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MyPostPage);
+
 export { connectedPostPage as MyPostPage };

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import wrapLayout from 'components/layouts/default';
 import { registerAction } from '../../store/actions';
 
 class SignUp extends React.Component {
@@ -145,7 +144,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = () => ({});
 
-const connectedSignUp = wrapLayout(
-  connect(mapStateToProps, mapDispatchToProps)(SignUp),
-);
+const connectedSignUp = connect(mapStateToProps, mapDispatchToProps)(SignUp);
 export { connectedSignUp as SignUp };
