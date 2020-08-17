@@ -10,6 +10,15 @@ export const login = async ({ email, password }) => {
   return request.get('/api/me');
 };
 
+export const loginGoogle = async ({ tokenId }) => {
+  const { accessToken } = await request.post('/api/auth/google', {
+    access_token: tokenId,
+  });
+  localStorage.setItem('token', accessToken);
+  request.setBearerToken(accessToken);
+  return request.get('/api/me');
+};
+
 export const getUserInfo = () => {
   return request.get('/api/me');
 };

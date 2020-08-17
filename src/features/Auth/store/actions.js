@@ -14,6 +14,13 @@ export const loginAction = (user) => {
   };
 };
 
+export const googleLoginAction = (user) => {
+  return {
+    type: types.LOGIN_GOOGLE,
+    user,
+  };
+};
+
 export const logoutAction = () => {
   return {
     type: types.LOGOUT_USER,

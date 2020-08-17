@@ -1,5 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 module.exports = {
   mode: 'development',
@@ -10,7 +14,7 @@ module.exports = {
       utils: path.resolve(__dirname, 'src/utils/'),
       features: path.resolve(__dirname, 'src/features/'),
       customFields: path.resolve(__dirname, 'src/customFields/'),
-    }
+    },
   },
   output: {
     publicPath: '/',
@@ -44,6 +48,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: './index.html',
+    }),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      DEBUG: false,
+      API_URL: '',
+      GOOGLE_CLIENT_ID: '',
+      FACEBOOK_APP_ID: '',
     }),
   ],
   devServer: {

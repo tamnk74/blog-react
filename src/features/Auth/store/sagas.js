@@ -1,5 +1,5 @@
 import { put, call, delay } from 'redux-saga/effects';
-import { register, login, getUserInfo } from './services';
+import { register, login, getUserInfo, loginGoogle } from './services';
 
 import * as types from './constants';
 import { history } from '../../../utils/history';
@@ -16,6 +16,16 @@ export function* registerSaga(payload) {
 export function* loginSaga(payload) {
   try {
     const user = yield call(login, payload.user);
+    yield put({ type: types.SET_USER, user });
+    history.push('/');
+  } catch (error) {
+    yield put({ type: types.ERROR, error });
+  }
+}
+
+export function* googleLoginSaga(payload) {
+  try {
+    const user = yield call(loginGoogle, payload.user);
     yield put({ type: types.SET_USER, user });
     history.push('/');
   } catch (error) {
