@@ -1,21 +1,21 @@
 import request from 'utils/request';
 
 export const login = async ({ email, password }) => {
-  const { accessToken } = await request.post('/api/login', {
+  const { accessToken, refreshToken } = await request.post('/api/login', {
     email,
     password,
   });
   localStorage.setItem('token', accessToken);
-  request.setBearerToken(accessToken);
+  localStorage.setItem('refresh_token', refreshToken);
   return request.get('/api/me');
 };
 
 export const loginGoogle = async ({ tokenId }) => {
-  const { accessToken } = await request.post('/api/auth/google', {
+  const { accessToken, refreshToken } = await request.post('/api/auth/google', {
     access_token: tokenId,
   });
   localStorage.setItem('token', accessToken);
-  request.setBearerToken(accessToken);
+  localStorage.setItem('refresh_token', refreshToken);
   return request.get('/api/me');
 };
 

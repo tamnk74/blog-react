@@ -37,7 +37,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open --hot --port 4200",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production --config=webpack.prod.config.js",
     "prettier": "prettier --check **/*.js",
     "prettier:fix": "prettier --write **/*.js",
     "lint:fix": "eslint --ext .ts,.js,.jsx --ignore-path .gitignore ./src --fix",

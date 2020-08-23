@@ -32,19 +32,6 @@ class App extends Component {
       position: toast.POSITION.TOP_RIGHT,
     });
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { errors } = nextProps;
-    if (Array.isArray(errors)) {
-      this.notify(
-        errors.map((err) => err.detail).join('\n') || 'Internal Server Error',
-      );
-      return;
-    }
-    if (errors) {
-      this.notify('Internal Server Error');
-    }
-  }
-
   componentDidMount() {
     if (localStorage.getItem('token')) {
       this.props.getUser();
@@ -109,7 +96,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-  errors: state.app.error && state.app.error.errors,
 });
 
 const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
