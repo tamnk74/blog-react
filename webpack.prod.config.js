@@ -6,7 +6,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
   resolve: {
     extensions: ['.jsx', '.js'],
     alias: {
@@ -50,20 +54,17 @@ module.exports = {
       filename: './index.html',
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      NODE_ENV: 'production', // use 'development' unless process.env.NODE_ENV is defined
       DEBUG: false,
-      API_URL: 'http://localhost:3000',
+      API_URL: 'http://blog5s.herokuapp.com',
       GOOGLE_CLIENT_ID: '',
       FACEBOOK_APP_ID: '',
     }),
   ],
-  devServer: {
-    historyApiFallback: true,
-  },
   externals: {
     // global app config object
     config: JSON.stringify({
-      apiUrl: 'http://localhost:3000',
+      apiUrl: 'http://blog5s.herokuapp.com',
     }),
   },
 };

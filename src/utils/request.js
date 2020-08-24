@@ -5,56 +5,60 @@ const jaDeserializer = new JSONAPIDeserializer({
   keyForAttribute: 'camelCase',
 });
 
-class Request {
-  constructor(api) {
-    this.api = api || 'http://localhost:3000';
-    this.token = null;
-  }
-  setApi(api) {
-    this.api = api;
-    return this;
-  }
-  setBearerToken(token) {
-    this.token = token;
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    return this;
+const request = axios.create({
+  baseURL: process.env.API_URL,
+  headers: {
+    'content-type': 'application/json',
+  },
+  paramsSerializer: (params) => queryString.stringify(params),
+});
+
+request.setToken = (token) => {
+  request.defaults.headers['x-access-token'] = token;
+  window.localStorage.setItem('token', token);
+};
+
+request.interceptors.request.use(async (config) => {
+  const token = window.localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
-  async get(path, options) {
-    const response = await axios
-      .get(`${this.api}${path}?${queryString.stringify(options)}`)
-      .catch((error) => {
-        throw error.response ? error.response.data : error;
-      });
-    return jaDeserializer.deserialize(response.data);
-  }
+  return config;
+});
 
-  async post(path, payload) {
-    const response = await axios
-      .post(`${this.api}${path}`, payload)
-      .catch((error) => {
-        throw error.response ? error.response.data : error;
-      });
-    return jaDeserializer.deserialize(response.data);
-  }
-  async patch(path, payload) {
-    const response = await axios
-      .patch(`${this.api}${path}`, payload)
-      .catch((error) => {
-        throw error.response ? error.response.data : error;
-      });
-    return response.data ? jaDeserializer.deserialize(response) : '';
-  }
-  async delete(path, payload) {
-    const response = await axios
-      .delete(`${this.api}${path}`, payload)
-      .catch((error) => {
-        throw error.response ? error.response.data : error;
-      });
-    return response.data ? jaDeserializer.deserialize(response) : '';
-  }
-}
+request.interceptors.response.use(
+  (response) => {
+    if (response && response.data) {
+      return jaDeserializer.deserialize(response.data);
+    }
 
-const request = new Request();
+    return response;
+  },
+  (error) => {
+    const {
+      response: { status },
+    } = error;
+    if (status === 401 && window.localStorage.getItem('refresh_token')) {
+      window.localStorage.removeItem('token');
+      return request
+        .post('/api/refresh-token', {
+          refresh_token: window.localStorage.getItem('refresh_token'),
+        })
+        .then((data) => {
+          const { accessToken } = data;
+          const { config } = error;
+          window.localStorage.setItem('token', accessToken);
+          return request(config);
+        })
+        .catch(() => {
+          window.localStorage.removeItem('refresh_token');
+          throw error;
+        });
+    }
+    // Todo: Handle errors
+    throw error;
+  },
+);
 
 export default request;

@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux';
-import { loginAction } from '../../store/actions';
+import { loginAction, googleLoginAction } from '../../store/actions';
+import { GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } from '../../../../config';
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log(GOOGLE_CLIENT_ID);
     // reset login status
     // this.props.dispatch(authActions.logout());
 
@@ -21,6 +23,7 @@ class SignIn extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.responseFacebook = this.responseFacebook.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
   }
 
   handleChange(e) {
@@ -30,6 +33,16 @@ class SignIn extends React.Component {
 
   responseFacebook(response) {
     console.log(response);
+  }
+  responseGoogle(response) {
+    const { error, tokenId } = response;
+    if (error) {
+      return;
+    }
+
+    this.props.googleLogin({
+      tokenId,
+    });
   }
 
   handleSubmit(e) {
@@ -50,58 +63,84 @@ class SignIn extends React.Component {
     const { email, password, submitted } = this.state;
     return (
       <div className="col-md-9">
-        <h2>Login</h2>
-        <form name="form" onSubmit={this.handleSubmit}>
-          <div
-            className={'form-group' + (submitted && !email ? ' has-error' : '')}
-          >
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              value={email}
-              onChange={this.handleChange}
-            />
-            {submitted && !email && (
-              <div className="help-block">Email is required</div>
-            )}
+        <div className="card bg-light">
+          <div className="card-header">
+            <h3>Social Login </h3>
           </div>
-          <div
-            className={
-              'form-group' + (submitted && !password ? ' has-error' : '')
-            }
-          >
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={this.handleChange}
+          <div className="card-body">
+            <GoogleLogin
+              clientId={GOOGLE_CLIENT_ID}
+              buttonText="Login by google"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              cookiePolicy={'single_host_origin'}
             />
-            {submitted && !password && (
-              <div className="help-block">Password is required</div>
-            )}
           </div>
-          <div className="form-group">
-            <button className="btn btn-success">Login</button>
-            <FacebookLogin
-              cssClass="btn btn-primary"
-              appId="398766187175821"
-              autoLoad={false}
-              fields="name,email,picture"
-              callback={this.responseFacebook}
-              icon="fa-facebook"
-            />
-            {loggingIn && (
-              <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            )}
-            <Link to="/signup" className="btn btn-link">
-              Register
-            </Link>
+        </div>
+        <hr />
+        <div className="card">
+          <div className="card-header">
+            <h3>Login </h3>
           </div>
-        </form>
+          <div className="card-body">
+            <form name="form" onSubmit={this.handleSubmit}>
+              <div
+                className={
+                  'form-group' + (submitted && !email ? ' has-error' : '')
+                }
+              >
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+                {submitted && !email && (
+                  <div className="help-block">Email is required</div>
+                )}
+              </div>
+              <div
+                className={
+                  'form-group' + (submitted && !password ? ' has-error' : '')
+                }
+              >
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+                {submitted && !password && (
+                  <div className="help-block">Password is required</div>
+                )}
+              </div>
+              <div className="form-group">
+                <button className="btn btn-success">Login</button>
+                {false && (
+                  <FacebookLogin
+                    cssClass="btn btn-primary"
+                    appId={FACEBOOK_APP_ID}
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    callback={this.responseFacebook}
+                    icon="fa-facebook"
+                  />
+                )}
+
+                {loggingIn && (
+                  <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                )}
+                <Link to="/signup" className="btn btn-link">
+                  Register
+                </Link>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
@@ -109,10 +148,13 @@ class SignIn extends React.Component {
 
 SignIn.propTypes = {
   login: PropTypes.func,
+  googleLogin: PropTypes.func,
   loggingIn: PropTypes.bool,
 };
+
 const mapDispatchToProps = (dispatch) => ({
   login: (user) => dispatch(loginAction(user)),
+  googleLogin: (user) => dispatch(googleLoginAction(user)),
 });
 
 const mapStateToProps = (state) => ({
