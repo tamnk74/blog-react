@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updatePost, getPost } from './actions';
@@ -16,8 +15,7 @@ class EditPostPage extends Component {
   }
 
   componentDidMount() {
-    const { id } = useParams();
-    this.props.getPost(id);
+    this.props.getPost(this.props.match.params.id);
   }
 
   render() {
@@ -34,6 +32,7 @@ class EditPostPage extends Component {
 
 EditPostPage.propTypes = {
   post: PropTypes.object,
+  match: PropTypes.object,
   getPost: PropTypes.func,
   updatePost: PropTypes.func,
 };

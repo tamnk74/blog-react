@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updatePost, getPost } from '../../store/actions';
@@ -20,9 +19,8 @@ class EditPostPage extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    const { id } = useParams();
     this.props.fetchCategories();
-    this.props.getPost(id);
+    this.props.getPost(this.props.match.params.id);
   }
 
   render() {
