@@ -15,7 +15,9 @@ import { HomePage } from './features/Home';
 import { SignIn, SignUp, Profile } from './features/Auth/pages';
 import { getUserAction } from './features/Auth/store/actions';
 import { ToastContainer, toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
+import './styles/app.scss';
 
 // Lazy load - Code splitting
 const Post = React.lazy(() => import('./features/Post'));
