@@ -54,7 +54,7 @@ module.exports = {
       filename: './index.html',
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production', // use 'development' unless process.env.NODE_ENV is defined
+      NODE_ENV: 'production', // use 'production' unless process.env.NODE_ENV is defined
       DEBUG: false,
       API_URL: 'http://blog5s.herokuapp.com',
       GOOGLE_CLIENT_ID: '',
