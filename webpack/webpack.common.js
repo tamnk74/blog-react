@@ -1,25 +1,23 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
 module.exports = {
-  mode: 'development',
-  resolve: {
-    extensions: ['.jsx', '.js'],
-    alias: {
-      components: path.resolve(__dirname, 'src/components'),
-      utils: path.resolve(__dirname, 'src/utils/'),
-      features: path.resolve(__dirname, 'src/features/'),
-      customFields: path.resolve(__dirname, 'src/customFields/'),
-    },
+  entry: {
+    app: './src/index.js',
   },
-  output: {
-    publicPath: '/',
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
+  resolve: {
+    extensions: ['.jsx', '.js', '.json'],
+    alias: {
+      components: path.resolve(__dirname, '../src/components'),
+      utils: path.resolve(__dirname, '../src/utils/'),
+      features: path.resolve(__dirname, '../src/features/'),
+      customFields: path.resolve(__dirname, '../src/customFields/'),
+    },
   },
   module: {
     rules: [
@@ -45,7 +43,10 @@ module.exports = {
     ],
   },
   plugins: [
+    // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      title: 'Production',
       template: './public/index.html',
       filename: './index.html',
     }),
@@ -57,13 +58,14 @@ module.exports = {
       FACEBOOK_APP_ID: '',
     }),
   ],
-  devServer: {
-    historyApiFallback: true,
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, '../dist'),
   },
   externals: {
     // global app config object
     config: JSON.stringify({
-      apiUrl: 'http://localhost:3000',
+      apiUrl: 'http://blog5s.herokuapp.com',
     }),
   },
 };
