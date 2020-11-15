@@ -13,6 +13,8 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.js', '.json'],
     alias: {
+      '@': path.resolve('src'),
+      '@@': path.resolve(),
       components: path.resolve(__dirname, '../src/components'),
       utils: path.resolve(__dirname, '../src/utils/'),
       features: path.resolve(__dirname, '../src/features/'),
@@ -22,15 +24,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules)/,
         loader: 'babel-loader',
       },
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.s[ac]ss$/i,
+        test: /\.(s[ac]ss|css)$/i,
         use: [
           // Creates `style` nodes from JS strings
           'style-loader',
@@ -38,6 +37,17 @@ module.exports = {
           'css-loader',
           // Compiles Sass to CSS
           'sass-loader',
+        ],
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            },
+          },
         ],
       },
     ],
