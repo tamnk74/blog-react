@@ -1,16 +1,17 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import AuthRoute from './components/AuthRoute';
-import NotFound from './components/NotFound';
+import AuthRoute from 'components/AuthRoute';
+import NotFound from 'components/NotFound';
 import wrapDefaultLayout from 'components/layouts/default';
-import { HomePage } from './features/Home';
-import { SignIn, SignUp, Profile } from './features/Auth/pages';
+import { HomePage } from 'features/Home';
+import { SignIn, SignUp, Profile } from 'features/Auth/pages';
 
 // Lazy load - Code splitting
-const Post = React.lazy(() => import('./features/Post'));
-const MyPost = React.lazy(() => import('./features/MyPost'));
-const Category = React.lazy(() => import('./features/Category'));
+const Post = React.lazy(() => import('features/Post'));
+const MyPost = React.lazy(() => import('features/MyPost'));
+const Category = React.lazy(() => import('features/Category'));
+const Samples = React.lazy(() => import('features/Samples'));
 
 const Routes = () => (
   <Switch>
@@ -25,6 +26,7 @@ const Routes = () => (
     <AuthRoute path="/me/posts" component={MyPost} />
     <Route path="/posts" component={Post} />
     <Route path="/categories" component={Category} />
+    <Route path="/samples" component={Samples} />
     <Route component={wrapDefaultLayout(NotFound)} />
   </Switch>
 );

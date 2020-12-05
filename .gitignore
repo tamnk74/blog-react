@@ -25,3 +25,5 @@ yarn-error.log*
 /.vscode
 dist
 .env
+apiGoogleconfig.json
+credentials.json
