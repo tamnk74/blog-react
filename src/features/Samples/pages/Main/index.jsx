@@ -18,6 +18,13 @@ const MainPage = () => {
         ></i>{' '}
         CSS Samples
       </Link>
+      <Link to="/samples/snowflake" className="nav-link">
+        <i
+          className="fa fa-calendar"
+          style={{ color: 'blue', marginRight: '10px' }}
+        ></i>{' '}
+        SnowFlake
+      </Link>
     </>
   );
 };
