@@ -50,26 +50,23 @@ class App extends Component {
         <Router history={history}>
           <Navbar />
           <Switch>
-            {routes.map((route, i) => {
-              if (route.isPrivate) {
-                return (
-                  <AuthRoute
-                    key={i}
-                    exact={route.exact}
-                    path={route.path}
-                    component={route.component}
-                  />
-                );
-              }
-              return (
+            {routes.map((route, i) =>
+              route.isPrivate ? (
+                <AuthRoute
+                  key={i}
+                  exact={route.exact}
+                  path={route.path}
+                  component={route.component}
+                />
+              ) : (
                 <Route
                   key={i}
                   exact={route.exact}
                   path={route.path}
                   component={route.component}
                 />
-              );
-            })}
+              ),
+            )}
           </Switch>
         </Router>
       </div>

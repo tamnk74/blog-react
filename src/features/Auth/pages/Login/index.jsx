@@ -6,6 +6,7 @@ import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux';
 import { loginAction, googleLoginAction } from '../../store/actions';
 import { GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } from '../../../../config';
+import './styles.scss';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -62,27 +63,37 @@ class SignIn extends React.Component {
     const { loggingIn } = this.props;
     const { email, password, submitted } = this.state;
     return (
-      <div className="col-md-9">
-        <div className="card bg-light">
-          <div className="card-header">
-            <h3>Social Login </h3>
+      <div className="card bg-light">
+        <ul className="nav nav-tabs tab-menu">
+          <li className="nav-item col">
+            <a
+              className="nav-link active"
+              data-toggle="tab"
+              href="#social-login"
+            >
+              <h3>Social Login </h3>
+            </a>
+          </li>
+          <li className="nav-item col">
+            <a className="nav-link" data-toggle="tab" href="#normal-login">
+              <h3>Normal Login</h3>
+            </a>
+          </li>
+        </ul>
+
+        <div className="tab-content">
+          <div className="tab-pane container active" id="social-login">
+            <div className="d-flex justify-content-center align-items-center social">
+              <GoogleLogin
+                clientId={GOOGLE_CLIENT_ID}
+                buttonText="Login by google"
+                onSuccess={this.responseGoogle}
+                onFailure={this.responseGoogle}
+                cookiePolicy={'single_host_origin'}
+              />
+            </div>
           </div>
-          <div className="card-body">
-            <GoogleLogin
-              clientId={GOOGLE_CLIENT_ID}
-              buttonText="Login by google"
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}
-              cookiePolicy={'single_host_origin'}
-            />
-          </div>
-        </div>
-        <hr />
-        <div className="card">
-          <div className="card-header">
-            <h3>Login </h3>
-          </div>
-          <div className="card-body">
+          <div className="tab-pane container fade" id="normal-login">
             <form name="form" onSubmit={this.handleSubmit}>
               <div
                 className={
