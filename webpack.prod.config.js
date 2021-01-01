@@ -54,9 +54,10 @@ module.exports = {
       filename: './index.html',
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production', // use 'development' unless process.env.NODE_ENV is defined
+      NODE_ENV: 'production', // use 'production' unless process.env.NODE_ENV is defined
       DEBUG: false,
-      API_URL: 'http://blog5s.herokuapp.com',
+      API_URL:
+        'https://cors-anywhere.herokuapp.com/http://blog5s.herokuapp.com',
       GOOGLE_CLIENT_ID: '',
       FACEBOOK_APP_ID: '',
     }),
@@ -64,7 +65,7 @@ module.exports = {
   externals: {
     // global app config object
     config: JSON.stringify({
-      apiUrl: 'http://blog5s.herokuapp.com',
+      apiUrl: 'https://cors-anywhere.herokuapp.com/http://blog5s.herokuapp.com',
     }),
   },
 };

@@ -43,6 +43,11 @@ class Navbar extends React.Component {
                   Categories
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/samples" className="nav-link">
+                  Samples
+                </Link>
+              </li>
               {/* <li className="nav-item"><Link to='/tags' className="nav-link">Tags</Link></li> */}
             </ul>
             <form className="form-inline my-2 my-lg-0" role="search">
