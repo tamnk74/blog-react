@@ -8,7 +8,7 @@
     "@fullcalendar/interaction": "^5.4.0",
     "@fullcalendar/react": "^5.4.0",
     "@fullcalendar/timegrid": "^5.4.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "formik": "^2.1.5",
