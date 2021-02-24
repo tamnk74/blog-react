@@ -1,11 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Link } from "react-router-dom";
+import { matchPath } from "react-router";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
-import { SignedInLinks } from './SignedInLinks';
-import SignedOutLinks from './SignedOutLinks';
-import { setQuery } from '../store/actions';
+import { SignedInLinks } from "./SignedInLinks";
+import SignedOutLinks from "./SignedOutLinks";
+import { setQuery } from "../store/actions";
 
 class Navbar extends React.Component {
   handleChangeQuery = (e) => {
@@ -13,6 +15,7 @@ class Navbar extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const { auth } = this.props;
     return (
       <nav className="navbar navbar-default navbar-static-topnavbar navbar-expand-lg navbar-light bg-light">
@@ -34,7 +37,11 @@ class Navbar extends React.Component {
           <div className="collapse navbar-collapse" id="app-navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link to="/posts" className="nav-link">
+                <Link
+                  to="/posts"
+                  className={classNames("nav-link")}
+                  activeClassName="nav-link active"
+                >
                   Posts
                 </Link>
               </li>

@@ -16,10 +16,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles/app.scss';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   notify = (message) =>
     toast.error(message, {
       position: toast.POSITION.TOP_RIGHT,

@@ -21,7 +21,7 @@ class SignedInLinks extends React.Component {
     const { user } = this.props;
     return (
       <ul className="navbar-nav navbar-right">
-        {user.role == 'ADMIN' && <AdminLinks />}
+        {user.role === 'ADMIN' && <AdminLinks />}
         <li className="nav-item dropdown">
           <a
             href="#"

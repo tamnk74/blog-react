@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-import PostList from '../Post/components/PostList';
-import { getPosts } from '../Post/store/actions';
-import Pagination from 'react-js-pagination';
+import PostList from "../Post/components/PostList";
+import { getPosts } from "../Post/store/actions";
+import Pagination from "react-js-pagination";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class HomePage extends React.Component {
   UNSAFE_componentWillMount() {
     this.props.getPosts({
       ...this.state,
-      sort: '-view',
+      sort: "-view",
     });
   }
 
@@ -33,6 +33,7 @@ class HomePage extends React.Component {
   render() {
     const { posts, pageInfo } = this.props;
     const { limit } = this.state;
+    console.log(this.props);
     return (
       <Fragment>
         {posts && <PostList posts={posts} />}
@@ -69,6 +70,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const connectedHomePage = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(HomePage);
 export { connectedHomePage as HomePage };
