@@ -12,6 +12,7 @@ const Post = React.lazy(() => import('features/Post'));
 const MyPost = React.lazy(() => import('features/MyPost'));
 const Category = React.lazy(() => import('features/Category'));
 const Samples = React.lazy(() => import('features/Samples'));
+const CV = React.lazy(() => import('features/Home/components/cv'));
 
 const Routes = () => (
   <Switch>
@@ -25,6 +26,7 @@ const Routes = () => (
     />
     <AuthRoute path="/me/posts" component={MyPost} />
     <Route path="/posts" component={Post} />
+    <Route path="/cv" component={CV} />
     <Route path="/categories" component={Category} />
     <Route path="/samples" component={Samples} />
     <Route component={wrapDefaultLayout(NotFound)} />

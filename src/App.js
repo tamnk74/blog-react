@@ -2,7 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 
-import { Router } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { history } from './utils';
@@ -42,10 +42,10 @@ class App extends Component {
         </Helmet>
         <ToastContainer />
         <Suspense fallback={<Loading />}>
-          <Router history={history}>
+          <HashRouter history={history}>
             <Navbar />
             <Routers />
-          </Router>
+          </HashRouter>
         </Suspense>
       </div>
     );
